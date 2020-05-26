@@ -11,6 +11,7 @@ library(leaflet)
 library(leaflet.extras)
 library(shinyWidgets)
 library(tidyverse)
+library(shinyWidgets)
 
 
 ui <- dashboardPage(skin="black",
@@ -84,7 +85,7 @@ ui <- dashboardPage(skin="black",
                 }
               }
               
-              var TIMEOUT = 1000; //SPECIFY
+              var TIMEOUT = 2000; //SPECIFY
               var started = false;
               function getLocationRepeat(){
                 //first time only - no delay needed
@@ -114,8 +115,20 @@ ui <- dashboardPage(skin="black",
     
     tabItems(
       tabItem(tabName="welcome",
-              h2("Velkomstfane her")
-              ),
+              #h2("Velkomstfane her")
+              widgetUserBox(
+                width=12,
+                title = "NM i Undervannsfoto",
+                subtitle = "10. - 13. September 2020",
+                type = NULL,
+                src = "duknm_logo.jpg",
+                background = TRUE,
+                backgroundUrl = "temporary_jellyfish2.jpg",
+                closable = FALSE,
+                "Velkommen!",
+                footer = "All informasjon du måtte trenge i løpet av NM finner du i sidemenyen. Hilsen Drøbak Undervannsklubb."
+              )
+      ),
       tabItem(tabName="logistics",
               h2("Ved Ankomst (prosedyre nedenfor)"),
               # fluidRow(
@@ -143,7 +156,7 @@ ui <- dashboardPage(skin="black",
               h2("NM i Undervannsfoto"),
               fluidRow(
                 tabBox(width = 12,
-                       tabPanel("Dag 1 - Torsdag",
+                       tabPanel("Dag 1",
                                 fluidRow(
                                   socialBox(
                                     width=12,
@@ -187,7 +200,7 @@ ui <- dashboardPage(skin="black",
                                 )#end fluidRow
                                 
                                 ),
-                       tabPanel("Dag 2 - Fredag",
+                       tabPanel("Dag 2",
                                 fluidRow(
                                   socialBox(
                                     height=12,
@@ -256,7 +269,7 @@ ui <- dashboardPage(skin="black",
                                   )#end social box
                                 )
                                 ),
-                       tabPanel("Dag 3 - Lørdag",
+                       tabPanel("Dag 3",
                                 fluidRow(
                                   socialBox(
                                     width=12,
@@ -323,7 +336,7 @@ ui <- dashboardPage(skin="black",
                                   )#end social box
                                 )
                                 ),
-                       tabPanel("Dag 4 - Søndag",
+                       tabPanel("Dag 4",
                                 fluidRow(
                                   socialBox(
                                     width=12,
@@ -382,7 +395,7 @@ ui <- dashboardPage(skin="black",
       ),
       tabItem(tabName = "safety",
               fluidPage(
-                h1("Sikkerhetsregler for Apparatdykkere i Drøbak Undervannsklubb (DUK)"),
+                h2("Sikkerhetsregler for Apparatdykkere i Drøbak Undervannsklubb (DUK)"),
                   
                   box(title="1)	 All dykking i regi av DUK skal foregå med utnevnt dykkeleder (DL).",
                       width = 12,
@@ -543,7 +556,7 @@ ui <- dashboardPage(skin="black",
                 box(title="16)	 Før fylling av flasker skal flasker kontrolleres for gyldig kontrollmerke",
                     width=12,
                     status = "info"),
-                box(title="17)	 Dykking fra klubbhuset skal ferga ved Oscarsborg festning varsles. Se oppslag",
+                box(title="17)	 Ved dykking fra klubbhuset skal ferga ved Oscarsborg festning varsles. Se oppslag",
                     width=12,
                     status = "info"),
                 box(title="18)	 Følg parkeringsreglene. Se oppslag",
@@ -573,10 +586,11 @@ ui <- dashboardPage(skin="black",
                               verbatimTextOutput("geolocation"),
                               verbatimTextOutput("accuracy"),
                               verbatimTextOutput("time"))
-                       
+
               ),
               fluidRow(
                 box(leafletOutput("geolocmap"))
+                #materialSwitch(inputId = "switch_geoloc", label = "Slå på geolokasjon", status = "info")
               )
               )#end tabItem
     )
@@ -626,26 +640,45 @@ server <- function(input, output, session) {
   icon_dive4 <- awesomeIcons(icon = 'camera', iconColor='black', library='fa', markerColor = 'red')
   
 ############### leaflet geolocation map ##################  
-  output$geolocmap <- renderLeaflet({
+  #home coordinates
+  home_lat <- 59.92679 
+  home_long <- 10.77195
+  
+  
+  #this is the static map:
+    output$geolocmap <- renderLeaflet({
     leaflet() %>%
-      addTiles() %>% 
-      addAwesomeMarkers(lat = input$lat, lng = input$long, popup="du er her",icon=icon_usr)    
+      addTiles() #%>% 
+      #addAwesomeMarkers(lat = home_lat, lng = home_long, popup="du ble lokalisert her først",icon=icon_usr)
   })  
   
-  # observe({
-  #   icon_usr <- awesomeIcons(
-  #     icon = 'male',
-  #     iconColor = 'black',
-  #     library = 'fa',
-  #     markerColor = "red"
-  #   ) 
-  #   
-  #   leafletProxy("geolocmap") %>%
-  #     #clearMarkers() %>%
-  #   
-  #   addAwsomeMarkers(lat = input$lat, lng = input$long, popup="du er her",icon=icon_usr) 
-  # })
-    
+  
+    observe({
+      if(!is.null(input$lat)){
+        
+        lat <- input$lat
+        lng <- input$long
+        acc <- input$accuracy
+        time <- input$time
+        
+        proxy <- leafletProxy("geolocmap")
+        
+        proxy  %>% 
+          clearGroup(group="pos") %>% 
+          addMarkers(lng=lng, lat=lat, 
+                     popup=paste("My location is:","<br>",
+                                                   lng,"Longitude","<br>",
+                                                   lat,"Latitude", "<br>",
+                                                   "My accuracy is:",  "<br>",
+                                                   acc, "meters"),
+                     group="pos") %>%
+          addCircles(lng=lng, lat=lat, radius=acc, group="pos") 
+        
+      }
+      
+    })
+  
+  
 ############### leaflet main map ##################  
   output$mainmap <- renderLeaflet({
     leaflet() %>%
