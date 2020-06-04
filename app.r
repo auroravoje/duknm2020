@@ -26,10 +26,10 @@ ui <- dashboardPage(skin="black",
                                menuItem("Velkommen", tabName = "welcome", icon=icon("cake")),
                                menuItem("Transport og logistikk", tabName = "logistics", icon=icon("car")),
                                menuItem("Områdekart", tabName = "map", icon=icon("map-signs")),
-                               menuItem("Timeplan", tabName = "timetable", icon=icon("calendar-alt")),
+                               menuItem("Timeplan og områdekart", tabName = "timetable", icon=icon("calendar-alt")),
                                menuItem("Dykkeplasser", tabName = "divesites", icon=icon("flag")),
                                menuItem("Utstyr & Info", tabName = "equipment", icon=icon("cubes")),
-                               menuItem("Sikkerhetsregler", tabName = "safety", icon=icon("thermometer-empty")),
+                               menuItem("HMS og Sikkerhet", tabName = "safety", icon=icon("thermometer-empty")),
                                menuItem("Kontakt", tabName = "contact", icon=icon("phone")),
                                menuItem("Sponsorer", tabName = "sponsors", icon=icon("gift")),
                                menuItem("Test geolokasjon", tabName = "testing", icon=icon("chart-bar"))
@@ -130,30 +130,23 @@ ui <- dashboardPage(skin="black",
               )
       ),
       tabItem(tabName="logistics",
-              h2("Ved Ankomst (prosedyre nedenfor)"),
+              h2("Ved Ankomst (prosedyre nedenfor)")
+             
+      ),
+      tabItem(tabName = "map",
+              # h2("Områdekart"),
               # fluidRow(
-              #   box(title = "Oversiktskart - trykk på markørene for info",
+              #   box(title = "Trykk på markørene for info",
               #       width=12,
               #       status = "info",
               #       collapsible=F,
               #       collapsed=F,
               #       leafletOutput("mainmap"))
               # )
-      ),
-      tabItem(tabName = "map",
-              h2("Områdekart"),
-              fluidRow(
-                box(title = "Trykk på markørene for info",
-                    width=12,
-                    status = "info",
-                    collapsible=F,
-                    collapsed=F,
-                    leafletOutput("mainmap"))
-              )
         
       ),
       tabItem(tabName="timetable",
-              h2("NM i Undervannsfoto"),
+              h2("Timeplan"),
               fluidRow(
                 tabBox(width = 12,
                        tabPanel("Dag 1",
@@ -195,18 +188,20 @@ ui <- dashboardPage(skin="black",
                                         "Sted: Oscarsborg Hotell"
                                       )
                                     ),
-                                    footer = "For detaljert stedslokasjon se Områdekart i app-meny"
+                                    footer = "For detaljert stedslokasjon se kart."
                                   )#end social box
-                                )#end fluidRow
+                                  
+                                ),#end fluidRow
                                 
-                                ),
+                                
+                                
+                       ),
                        tabPanel("Dag 2",
                                 fluidRow(
                                   socialBox(
-                                    height=12,
                                     width=12,
                                     title = "Timeplan dag 2",
-                                    subtitle = "11.09.2020",
+                                    subtitle = "12.09.2020",
                                     src = "duk_logo.jpg",
                                     comments = tagList(
                                       boxComment(
@@ -263,12 +258,13 @@ ui <- dashboardPage(skin="black",
                                         date = "21:00 - ",
                                         "Sted: Oscarsborg Hotell (se kart)"
                                       )
-                                      
-                                    ),
-                                    footer = "For detaljert stedslokasjon se kart"
-                                  )#end social box
-                                )
-                                ),
+                                    ),#end tagsList
+                                    footer = "For detaljert stedslokasjon se kart."
+                                  )#end socialBox
+                                )#end fluidRow
+                         
+                       ),
+                       
                        tabPanel("Dag 3",
                                 fluidRow(
                                   socialBox(
@@ -335,7 +331,7 @@ ui <- dashboardPage(skin="black",
                                     footer = "For detaljert stedslokasjon se kart"
                                   )#end social box
                                 )
-                                ),
+                       ),
                        tabPanel("Dag 4",
                                 fluidRow(
                                   socialBox(
@@ -375,11 +371,19 @@ ui <- dashboardPage(skin="black",
                                 
                        )
                        
+                ),
+                h2("Områdekart"),
+                fluidRow(
+                  box(title = "Trykk på markørene for info",
+                      width=12,
+                      status = "info",
+                      collapsible=F,
+                      collapsed=F,
+                      leafletOutput("mainmap"))
                 )
-                
               )  #end fluidRow
               
-              ),
+      ),
       tabItem(tabName="divesites",
               box(title = "Oversikt aktuelle dykkeplasser for gjennomføring av NM",
                   width=12,
@@ -391,192 +395,450 @@ ui <- dashboardPage(skin="black",
                   )),
      
       tabItem(tabName="equipment",
-              h2("Utstyr")
-      ),
-      tabItem(tabName = "safety",
+              h2("Utstyr"),
               fluidPage(
-                h2("Sikkerhetsregler for Apparatdykkere i Drøbak Undervannsklubb (DUK)"),
-                  
-                  box(title="1)	 All dykking i regi av DUK skal foregå med utnevnt dykkeleder (DL).",
-                      width = 12,
-                      status = "info"),
-                  box(title = "2)	 Dykker skal følge DLs retningslinjer og instrukser.",
-                      width=12,
-                      status = "info"),
-                  box(title= "3)	Solo dykking skal ikke tillates hvor DUK står som arrangør",
-                      width=12,
-                      status = "info"),
-                box(title="4)	 Sørg for å være opplagt og i god nok form, både fysisk og mentalt til å dykke.",
+                
+                box(title="Før Ankomst",
                     width=12,
-                    status = "info",
-                    box(title="Utfyllende informasjon:",
+                    box(title="Utfyllende info:",
                         width=12,
-                        collapsible=TRUE,
-                        collapsed=TRUE,
-                        tags$ul(
-                          tags$li("Det er ingen grunn til å føle skam å trekke seg før, eller under et dykk når man ikke føler seg i form."),
-                          tags$li("Ta hensyn til strøm, vind, temperatur, is, sikt i vannet og båttrafikk ved planlegging av dykket."),
-                          tags$li("Avtal maks dybde og total dykketid og meddel dykkeleder i god tid."),
-                          tags$li("Ved «hopp» fra båt skal ut-ventil på tørrdrakt være stengt, luft i vinge/vest, pusteventil i munnen og maske på."),
-                          tags$li("Gi DL OK-signal, eller signal om hjelp i tilfelle problemer."),
-                          tags$li("Hold sammen med meddykker(e) under hele nedstigningen, og kontroller underveis for eventuelle lekkasjer eller andre forhold, og vær forberedt å kunne hjelpe.")
-                        )
+                        collapsible=T,
+                        collapsed = T,
+                        p("Før ankomst bes deltagerne å ha fylt sine flaskesett."), 
+                        p("For de av deltagerne som har mulighet, anbefales det å medbringe ekstra flaskesett."),
+                        br(),
+                        p("Drøbak Undervannsklubb vil stille ekstra flaskesett til disposisjon, både enkle og doble."), 
+                        p("Det er viktig at deltagere som har behov for dette melder ifra til arrangøren så fort som mulig."),
                     )
-                ), 
-                box(title="5)	 Planlegg dykket med meddykker(e), og avtal dette med DL. ref.",
-                    width=12,
-                    status = "info",
-                        box(title="Utfyllende informasjon:",
-                            width=12,
-                            collapsible=TRUE,
-                            collapsed=TRUE,
-                            tags$ul(
-                              tags$li("Avtal rutiner hvis det dykkes ulikt, med åpent og lukket pustesystem, og om det benyttes undervannsscooter, foto/video, jakt osv."),
-                              tags$li("Sørg for å være kjent med hverandres nivå/erfaringer ifm planlegging av dykket.")
-                              
-                            )
-                        )
-                    
                 ),
-                  box(title="6)	 Gjennomfør kameratsjekk, avklar rutiner for dykket og følg prosedyre:",
-                      width=12,
-                      status = "info",
-                      box(title="Utfyllende informasjon:",
-                          width=12,
-                          collapsible=TRUE,
-                          collapsed=TRUE,
-                          tags$ul(
-                            tags$li("Mister man kontakt med meddykker under dykket er hovedregelen at man leter i 1 - 2 minutter."),
-                            tags$li("Er det resultatløst avbryter man dykket og gjennomfører en forsvarlig oppstigning."),
-                            tags$li("Må man gjennomføre deko- eller sikkerhetsstopp anbefales det at man skyter bøye slik at de på 
-                                    overflaten unngår en eventuell leteaksjon hvis man blir meldt savnet av meddykker."),
-                            h4(""),
-                            tags$li("Hvis meddykker ønsker å avslutte dykket, skal han/hun følges til sikker i land eller i båt, 
-                                    og avtal med dykkelder for videre dykking. Dette gjelder også hvis det dykkes i team på tre eller flere, 
-                                    da skal hele teamet avbryte dykket og følge vedkommende helt til overflaten og påse at hun/han har 
-                                    sikret oppdrift og fått kontakt med dykkeleder før teamet kan fortsette dykket. ")
-                          )
-                      )
-                      ),
-                  box(title="7)	 Alle dykkere skal ha dykkersertifikat og har fylt 15 år. Du er selv ansvarlig for å være kvalifisert til dykket. 
-                      Dykker under 15 år skal meddykker være nærmeste foresatt",
-                      width=12,
-                      status = "info"),
-                  box(title="8)	 Avtal rutiner for samhold.",
-                      width=12,
-                      status = "info"
-                     ),
-                box(title="9)	 Planlegg gassforbruk og nok reservegass. Koordineres med meddykker(e).",
+                box(title="Ved Ankomst Drøbak Undervannsklubb",
                     width=12,
-                    status = "info",
-                    box(title="Utfyllende informasjon:",
+                    box(title="Utfyllende info:",
                         width=12,
-                        collapsible=TRUE,
-                        collapsed=TRUE,
-                        tags$ul(
-                          tags$li("Sørg for å ha nok pustegass til å kunne håndtere en nødsituasjon under hele dykket for både deg selv og meddykker.")
-                        )
+                        collapsible=T,
+                        collapsed = T,
+                        p("Ved ankomst er det nødvendig at deltagerne følger arrangørens retningslinjer for logistikk av utstyr og fylling av gass."), 
+                        p("Ved ankomst må deltagerne lesse av sitt utstyr ved klubbhuset til Drøbak Undervannsklubb." ),
+                        p("Utstyr som avleveres vil merkes med deltagernes navn, adresse og telefonnummer."),
+                        p("Fra Steinbrygga ved klubbhuset vil arrangøren frakte utstyret over til Oscarsborg, hvor arrangementet avvikles."),
+                        p("Arrangøren anbefaler at kamera og annet ømfintlig utstyr fraktes til Oscarsborg av deltagerne selv.")
+                    )
+                ),
+                box(title="Ved ankomst Oscarsborg Festning",
+                    width=12,
+                    box(title="Utfyllende info:",
+                        width=12,
+                        collapsible=T,
+                        collapsed = T,
+                        p("Deltagerne bes følge arrangørens øvrige henvisninger knyttet til overnatting og arrangementets timeplan."), 
+                        p("Utstyr som arrangøren har fraktet over til Oscarsborg tilgjengeliggjøres for deltagerne på angitt område."), 
+                        p("Det vil i den forbindelse bli kunngjort rutiner for oppbevaring av utstyr under arrangementet."),
+                        p("Arrangøren anbefaler at deltagerne etter ankomst setter opp og sjekker utstyret sitt.")
+                    )
+                ),
+                box(title="Under Arrangementet",
+                    width=12,
+                    box(title="Utfyllende info:",
+                        width=12,
+                        collapsible=T,
+                        collapsed = T,
+                        p("Arrangøren stiller med kapasitet for fylling av flaskesett under hele arrangementet.") ,
+                        p("Deltagerne bes avlevere sine flaskesett på angitt område umiddelbart etter hvert gjennomførte dykk."), 
+                        p("Arrangøren vil markere flaskesettet med deltagerens nummer og deretter fylle samtlige avleverte flaskesett."),
+                        p("Arrangøren vil også stille til rådighet et utvalg ferdig fylte flaskesett."),
+                        p("Det vil være mulig å avlevere flaskesett også på andre tidspunkter, 
+                            men arrangøren kan da ikke garantere for at disse vil være fylt i tide for neste dykk.")
+                    )
+                ),
+                box(title="Ved Avreise",
+                    width=12,
+                    box(title="Utfyllende info:",
+                        width=12,
+                        collapsible=T,
+                        collapsed = T,
+                        p("Deltagerne følger arrangørens henvisninger knyttet til utsjekk fra hotellet og båt tilbake til Drøbak."),
+                        p("Utstyr som arrangøren skal frakte tilbake til Drøbak Undervannsklubb sitt klubbhus må avleveres på område som angis av arrangøren under arrangementet."),
+                        p("Arrangøren anbefaler også ved avreise at deltagerne selv frakter med seg kamera og annet ømfintlig utstyr."),
+                        p("Utstyr som avleveres vil merkes med deltagernes navn, adresse og telefonnummer.")
+                        
                     )
                     
-                ),
-                box(title="10)	 Alle dykkere er selv ansvarlig for å kontrollere at det dykkes med riktig pustegass på flaskene.",
-                    width=12,
-                    status = "info",
-                    box(title="Utfyllende informasjon:",
-                        width=12,
-                        collapsible=TRUE,
-                        collapsed=TRUE,
-                        tags$ul(
-                          tags$li("Sørg for å ha egnet pustegass for dykket og at du har nok gass, inkludert reserve."),
-                          tags$li("Gjør deg kjent med meddykkers gassplan om den er forskjellig."),
-                          tags$li("Om du har fylt flaskene selv, eller fått fylt av andre, 
-                                     er du selv ansvarlig for å kontrollere at du har riktig pustegass (luft/Nitrox/Trimix) på flasken(e)"),
-                          tags$li("Analyser gassen før dykk, og noter gassverdien på flsken(e)."),
-                          tags$li("Be om hjelp hvis du er usikker.")
-                        )
-                    )
-                ),
-                  box(title="11)	 Følg prosedyre ved avsluttet dykk. Bruk av SMB er anbefalt. DUK skiller ikke mellom farge på SMB:",
-                      width=12,
-                      status = "info",
-                      box(title="Utfyllende informasjon:",
-                          width=12,
-                          collapsible=TRUE,
-                          collapsed=TRUE,
-                          tags$ul(
-                            tags$li("Avtal alltid med meddykker(e) om at du ønsker å avslutte dykket (gi tydelig håndsignal)"),
-                            tags$li("Bøye/SMB benyttes som hovedregel ved avslutning av dykket. Anbefaler at minst en har bøye/SMB med seg."),
-                            tags$li("Ivareta sikker oppstigning"),
-                            tags$li("Hold øye med meddykker under hele oppstigningen"),
-                            tags$li("Sikre positiv oppdrift i overflaten ved å stenge utventilen på drakten, 
-                                    blåse opp vesten/vingen og drakt. Hold kontakt med meddykker(e)"),
-                            tags$li("Dropp bly om nødvendig (blyet er forsikret gjennom NDF ifm nødsituasjon)"),
-                            tags$li("Gi OK signal til dykkeleder"),
-                            tags$li("Følg DLs rettningslinjer")
-                          )
-                      )   
-                      ),
-                  box(title="12) Informasjon til gjestedykker, eller ny i klubben.",
-                      width=12,
-                      status = "info",
-                      box(title="Utfyllende informasjon:",
-                          width=12,
-                          collapsible=TRUE,
-                          collapsed=TRUE,
-                          tags$ul(
-                            tags$li("Er du gjestedykker/nytt medlem i klubben så gjør deg kjent for DL når du ankommer."),
-                            tags$li("Sørg for at DL og meddykkere kjenner ditt erfarings- og sertifiseringsnivå, 
-                                    og eventuelle andre relevante faktorer som sykdom eller lignende."),
-                            tags$li("Gjestedykkerskjema skal fylles ut om man ikke er registrert som medlem."),
-                          )
-                      )   
-                      ),
-                  box(title="13)	 Sørg for at utstyret du dykker med er i forsvarlig teknisk stand.",
-                      width=12,
-                      status = "info",
-                      box(title="Utfyllende informasjon:",
-                          width=12,
-                          collapsible=TRUE,
-                          collapsed=TRUE,
-                          tags$ul(
-                            tags$li("Du er ansvarlig for at flaskene er sertifisert/trykkprøvd iht Norsk standard."),
-                            tags$li("Ved dykking i mørke skal du være utstyrt med reservelykt. "),
-                            tags$li("Sørg for at all pusteutstyr (1-. og 2. trinn) er i forsvarlig teknisk stand."),
-                            tags$li("Husk at ditt personlige dykkerutstyr skal kunne bli brukt av meddykker under en uønsket hendelse/situasjon.")
-                           
-                          )
-                      )   
-                  ),
-                box(title="14)	 Ved dykking i mørket skal dykkere være utstyrt med reservelykt som fungerer",
-                    width=12,
-                    status = "info"),
-                box(title="15)	 Dykkere registrerer seg elektronisk før og etter dykk",
-                    width=12,
-                    status = "info"),
-                box(title="16)	 Før fylling av flasker skal flasker kontrolleres for gyldig kontrollmerke",
-                    width=12,
-                    status = "info"),
-                box(title="17)	 Ved dykking fra klubbhuset skal ferga ved Oscarsborg festning varsles. Se oppslag",
-                    width=12,
-                    status = "info"),
-                box(title="18)	 Følg parkeringsreglene. Se oppslag",
-                    width=12,
-                    status = "info"),
-                box(title="19)	 Dykkere skal være kjent med DUKs vedtekter",
-                    width=12,
-                    status = "info")
+                )
+                
+                
+                
+                
               )
               
       ),
+      tabItem(tabName = "safety",
+              fluidPage(
+                h2("HMS og Sikkerhet"),
+                tabBox(width=12,
+                       tabPanel("Ansvar",
+                                fluidPage(
+                                  box(width=12,
+                                      title = "Ansvarlig arrangør",
+                                      #status = "primary",
+                                      boxProfile(
+                                        src = "duk_logo.jpg",
+                                        title = "Drøbak Undervannsklubb",
+                                        subtitle = "(DUK)",
+                                        boxProfileItemList(
+                                          bordered = TRUE,
+                                          boxProfileItem(
+                                            title = "Ansvarlig:",
+                                            description = "908 97 535"
+                                          ),
+                                          boxProfileItem(
+                                            title = "Stedfortreder:",
+                                            description = "952 41 924"
+                                          ),
+                                          boxProfileItem(
+                                            title = "Forsikring:",
+                                            description = "Gjennom NDF"
+                                          ),
+                                          boxProfileItem(
+                                            title = "Sted:",
+                                            description = "Oscarsborg Festning"
+                                          )
+                                        )
+                                      )
+                                  ),
+                                  box(width=12,
+                                      title = "Ansvarlig juridisk og økonomisk",
+                                      #status = "primary",
+                                      boxProfile(
+                                        src = "ndf_logo3.jpg",
+                                        title = "Norges Dykkeforbund",
+                                        subtitle = "(NDF)",
+                                        boxProfileItemList(
+                                          bordered = TRUE,
+                                          boxProfileItem(
+                                            title = "Kontaktperson:",
+                                            description = "981 98 772"
+                                          )
+                                        )
+                                      )
+                                  )
+                                )
+                       ),#end tabPanel
+                       tabPanel("HMS-Mål",
+                                fluidPage(
+                                  box(width=12,
+                                      
+                                      h4("MÅL FOR HELSE-, MILJØ-"),
+                                      h4("OG SIKKERHETSARBEIDET"),
+                                      p("Under arrangementer hvor det deltar utøvere på tvers av klubbgrenser - 
+                            med ulike sikkerhetsregler og forskjellig sikkerhetsforståelse - 
+                            er det viktig å ha en fellesnorm, slik at alle føler at sikkerheten er ivaretatt. 
+                            Normen vil utgjøre en plattform som alle kan forholde seg til og kjenne igjen."),
+                                      
+                                      p("Det er viktig at alle som er involvert i arrangementet 
+                            (arrangementsleder, klubber, utøvere, funksjonærer, osv.) 
+                            har ens oppfatning av hvilke krav og prosedyrer som er gjeldende. 
+                            Dette vil kunne forebygge unødige diskusjoner."),
+                                      
+                                      p("På samme måte som en klubben bekjentgjør sine sikkerhetsregler overfor sine medlemmer, 
+                            er det helt nødvendig at DUK (Drøbak undervannsklubb), å ha klare regler ifm arrangementet."),
+                                      p("På denne bakgrunn har vi laget en oppstilling av de normer og krav som gjøres gjeldende i 
+                            forbindelse med arrangementer hvor DUK har arrangøransvaret."),
+                                      
+                                      p("Et annet viktig element er det ansvar vi som arrangør har overfor offentlige lover og forskrifter:"),
+                                      br(),
+                                      h4("Forskrift om systematisk helse-, miljø- og sikkerhetsarbeid i virksomheter."),
+                                      p("(Skriftlig, dokumenterbart intern-kontrollsystem)."),
+                                      
+                                      h4("Lov om kontroll med produkter og forbrukertjenester."),
+                                      p("(Tilrettelegging for aktivitet, for eksempel dykketreff, -leir og -tokt)"),
+                                      
+                                      h4("Forskrift om tryggleiken ved sportsdykking."),
+                                      p("(Grunnkurs, videregående kurs, emnekurs)")
+                                      
+                                  )
+                                )
+                       ),
+                       tabPanel("HMS-Krav",
+                                fluidPage(
+                                  box(width=12,
+                                      h2("Krav til deltakere:"),
+                                      
+                                      h4("Lisens:"),
+                                      p("Utøver må ha gyldig lisens."),
+                                      
+                                      h4("Helse:"),
+                                      p("Utøver skal være medisinsk skikket til å kunne delta på arrangementet."),
+                                      br()
+                                  ),
+                                  box(width=12,
+                                      h2("Krav til sikring:"),
+                                      
+                                      h4("Følgende funksjoner har ansvar for koordinering av uønskede hendelser:"),
+                                      tags$ul(
+                                        tags$li("Dykkeleder"),
+                                        tags$li("Båtfører"),
+                                        tags$li("Dommere"),
+                                        tags$li("HMS-ansvarlig (person fra arrangør)")
+                                      ),              
+                                      
+                                      h4("Utstyr i dykkerbåt:"),
+                                      tags$ul(
+                                        tags$li("Førstehjelpsutstyr"),
+                                        tags$li("O2-apparat (arrangør skal kunne bruke dette ved nødssituasjoner)"),
+                                        tags$li("Alarm og handlingsplan"),
+                                        tags$li("Telefon/VHF")
+                                      ),
+                                      
+                                      h4("Alarmplan og Handlingsplan"),
+                                      p("Se fanen for Alarmplan"),
+                                      
+                                      h4("Generelle sikkerhetsregler"),
+                                      p("Utøvere må forholde seg til gjeldende regelverk og sikkerhetsreglene."),
+                                      
+                                      p("Anvisninger som blir gitt av ledende personell skal følges."),
+                                      
+                                      h4("Journalføring"),
+                                      p("Det skal føres journal for alle uønskede hendelser.")
+                                  )
+                                )#end fluidPage
+                       ),
+                       tabPanel("Sikkerhetsregler",
+                                fluidPage(
+                                  box(title="1)	 All dykking i regi av DUK skal foregå med utnevnt dykkeleder (DL).",
+                                      width = 12,
+                                      status = "info"),
+                                  box(title = "2)	 Dykker skal følge DLs retningslinjer og instrukser.",
+                                      width=12,
+                                      status = "info"),
+                                  box(title= "3)	Solo dykking skal ikke tillates hvor DUK står som arrangør",
+                                      width=12,
+                                      status = "info"),
+                                  box(title="4)	 Sørg for å være opplagt og i god nok form, både fysisk og mentalt til å dykke.",
+                                      width=12,
+                                      status = "info",
+                                      box(title="Utfyllende informasjon:",
+                                          width=12,
+                                          collapsible=TRUE,
+                                          collapsed=TRUE,
+                                          tags$ul(
+                                            tags$li("Det er ingen grunn til å føle skam å trekke seg før, eller under et dykk når man ikke føler seg i form."),
+                                            tags$li("Ta hensyn til strøm, vind, temperatur, is, sikt i vannet og båttrafikk ved planlegging av dykket."),
+                                            tags$li("Avtal maks dybde og total dykketid og meddel dykkeleder i god tid."),
+                                            tags$li("Ved «hopp» fra båt skal ut-ventil på tørrdrakt være stengt, luft i vinge/vest, pusteventil i munnen og maske på."),
+                                            tags$li("Gi DL OK-signal, eller signal om hjelp i tilfelle problemer."),
+                                            tags$li("Hold sammen med meddykker(e) under hele nedstigningen, og kontroller underveis for eventuelle lekkasjer eller andre forhold, og vær forberedt å kunne hjelpe.")
+                                          )
+                                      )
+                                  ), 
+                                  box(title="5)	 Planlegg dykket med meddykker(e), og avtal dette med DL. ref.",
+                                      width=12,
+                                      status = "info",
+                                      box(title="Utfyllende informasjon:",
+                                          width=12,
+                                          collapsible=TRUE,
+                                          collapsed=TRUE,
+                                          tags$ul(
+                                            tags$li("Avtal rutiner hvis det dykkes ulikt, med åpent og lukket pustesystem, og om det benyttes undervannsscooter, foto/video, jakt osv."),
+                                            tags$li("Sørg for å være kjent med hverandres nivå/erfaringer ifm planlegging av dykket.")
+                                            
+                                          )
+                                      )
+                                      
+                                  ),
+                                  box(title="6)	 Gjennomfør kameratsjekk, avklar rutiner for dykket og følg prosedyre:",
+                                      width=12,
+                                      status = "info",
+                                      box(title="Utfyllende informasjon:",
+                                          width=12,
+                                          collapsible=TRUE,
+                                          collapsed=TRUE,
+                                          tags$ul(
+                                            tags$li("Mister man kontakt med meddykker under dykket er hovedregelen at man leter i 1 - 2 minutter."),
+                                            tags$li("Er det resultatløst avbryter man dykket og gjennomfører en forsvarlig oppstigning."),
+                                            tags$li("Må man gjennomføre deko- eller sikkerhetsstopp anbefales det at man skyter bøye slik at de på 
+                                    overflaten unngår en eventuell leteaksjon hvis man blir meldt savnet av meddykker."),
+                                            h4(""),
+                                            tags$li("Hvis meddykker ønsker å avslutte dykket, skal han/hun følges til sikker i land eller i båt, 
+                                    og avtal med dykkelder for videre dykking. Dette gjelder også hvis det dykkes i team på tre eller flere, 
+                                    da skal hele teamet avbryte dykket og følge vedkommende helt til overflaten og påse at hun/han har 
+                                    sikret oppdrift og fått kontakt med dykkeleder før teamet kan fortsette dykket. ")
+                                          )
+                                      )
+                                  ),
+                                  box(title="7)	 Alle dykkere skal ha dykkersertifikat og har fylt 15 år. Du er selv ansvarlig for å være kvalifisert til dykket. 
+                      Dykker under 15 år skal meddykker være nærmeste foresatt",
+                                      width=12,
+                                      status = "info"),
+                                  box(title="8)	 Avtal rutiner for samhold.",
+                                      width=12,
+                                      status = "info"
+                                  ),
+                                  box(title="9)	 Planlegg gassforbruk og nok reservegass. Koordineres med meddykker(e).",
+                                      width=12,
+                                      status = "info",
+                                      box(title="Utfyllende informasjon:",
+                                          width=12,
+                                          collapsible=TRUE,
+                                          collapsed=TRUE,
+                                          tags$ul(
+                                            tags$li("Sørg for å ha nok pustegass til å kunne håndtere en nødsituasjon under hele dykket for både deg selv og meddykker.")
+                                          )
+                                      )
+                                      
+                                  ),
+                                  box(title="10)	 Alle dykkere er selv ansvarlig for å kontrollere at det dykkes med riktig pustegass på flaskene.",
+                                      width=12,
+                                      status = "info",
+                                      box(title="Utfyllende informasjon:",
+                                          width=12,
+                                          collapsible=TRUE,
+                                          collapsed=TRUE,
+                                          tags$ul(
+                                            tags$li("Sørg for å ha egnet pustegass for dykket og at du har nok gass, inkludert reserve."),
+                                            tags$li("Gjør deg kjent med meddykkers gassplan om den er forskjellig."),
+                                            tags$li("Om du har fylt flaskene selv, eller fått fylt av andre, 
+                                     er du selv ansvarlig for å kontrollere at du har riktig pustegass (luft/Nitrox/Trimix) på flasken(e)"),
+                                            tags$li("Analyser gassen før dykk, og noter gassverdien på flsken(e)."),
+                                            tags$li("Be om hjelp hvis du er usikker.")
+                                          )
+                                      )
+                                  ),
+                                  box(title="11)	 Følg prosedyre ved avsluttet dykk. Bruk av SMB er anbefalt. DUK skiller ikke mellom farge på SMB:",
+                                      width=12,
+                                      status = "info",
+                                      box(title="Utfyllende informasjon:",
+                                          width=12,
+                                          collapsible=TRUE,
+                                          collapsed=TRUE,
+                                          tags$ul(
+                                            tags$li("Avtal alltid med meddykker(e) om at du ønsker å avslutte dykket (gi tydelig håndsignal)"),
+                                            tags$li("Bøye/SMB benyttes som hovedregel ved avslutning av dykket. Anbefaler at minst en har bøye/SMB med seg."),
+                                            tags$li("Ivareta sikker oppstigning"),
+                                            tags$li("Hold øye med meddykker under hele oppstigningen"),
+                                            tags$li("Sikre positiv oppdrift i overflaten ved å stenge utventilen på drakten, 
+                                    blåse opp vesten/vingen og drakt. Hold kontakt med meddykker(e)"),
+                                            tags$li("Dropp bly om nødvendig (blyet er forsikret gjennom NDF ifm nødsituasjon)"),
+                                            tags$li("Gi OK signal til dykkeleder"),
+                                            tags$li("Følg DLs rettningslinjer")
+                                          )
+                                      )   
+                                  ),
+                                  box(title="12) Informasjon til gjestedykker, eller ny i klubben.",
+                                      width=12,
+                                      status = "info",
+                                      box(title="Utfyllende informasjon:",
+                                          width=12,
+                                          collapsible=TRUE,
+                                          collapsed=TRUE,
+                                          tags$ul(
+                                            tags$li("Er du gjestedykker/nytt medlem i klubben så gjør deg kjent for DL når du ankommer."),
+                                            tags$li("Sørg for at DL og meddykkere kjenner ditt erfarings- og sertifiseringsnivå, 
+                                    og eventuelle andre relevante faktorer som sykdom eller lignende."),
+                                            tags$li("Gjestedykkerskjema skal fylles ut om man ikke er registrert som medlem."),
+                                          )
+                                      )   
+                                  ),
+                                  box(title="13)	 Sørg for at utstyret du dykker med er i forsvarlig teknisk stand.",
+                                      width=12,
+                                      status = "info",
+                                      box(title="Utfyllende informasjon:",
+                                          width=12,
+                                          collapsible=TRUE,
+                                          collapsed=TRUE,
+                                          tags$ul(
+                                            tags$li("Du er ansvarlig for at flaskene er sertifisert/trykkprøvd iht Norsk standard."),
+                                            tags$li("Ved dykking i mørke skal du være utstyrt med reservelykt. "),
+                                            tags$li("Sørg for at all pusteutstyr (1-. og 2. trinn) er i forsvarlig teknisk stand."),
+                                            tags$li("Husk at ditt personlige dykkerutstyr skal kunne bli brukt av meddykker under en uønsket hendelse/situasjon.")
+                                            
+                                          )
+                                      )   
+                                  ),
+                                  box(title="14)	 Ved dykking i mørket skal dykkere være utstyrt med reservelykt som fungerer",
+                                      width=12,
+                                      status = "info"),
+                                  box(title="15)	 Dykkere registrerer seg elektronisk før og etter dykk",
+                                      width=12,
+                                      status = "info"),
+                                  box(title="16)	 Før fylling av flasker skal flasker kontrolleres for gyldig kontrollmerke",
+                                      width=12,
+                                      status = "info"),
+                                  box(title="17)	 Ved dykking fra klubbhuset skal ferga ved Oscarsborg festning varsles. Se oppslag",
+                                      width=12,
+                                      status = "info"),
+                                  box(title="18)	 Følg parkeringsreglene. Se oppslag",
+                                      width=12,
+                                      status = "info"),
+                                  box(title="19)	 Dykkere skal være kjent med DUKs vedtekter",
+                                      width=12,
+                                      status = "info")
+                                )#end fluidPage
+                       ),
+                       tabPanel("Alarmplaner ved ulykker",
+                                fluidPage(
+                                  h4("Last ned alarmplanen og fyll ut datane før du dra ut, eller mens du sitter og venter I båten."), 
+                                  h4("I en opphetet situasjon er det ikke sikkert du husker telefonnummeret ditt eller hvor du er."),
+                                  tabBox(width=12,
+                                         tabPanel("Alarmplaner",
+                                                  
+                                                  fluidPage(
+                                                    box(status="danger",
+                                                        title="Alarmplan dykkeulykke",
+                                                        downloadButton("download_alarmplan_dykkeulykke", "last ned")
+                                                        ),
+                                                    box(status="danger",
+                                                        title="Alarmplan savnet dykker",
+                                                        downloadButton("download_alarmplan_savnetdykker", "last ned")
+                                                    ),
+                                                    box(status="danger",
+                                                        title="Alarmplan savnet- skadet- livløs dykker",
+                                                        downloadButton("download_alarmplan_livlosdykker", "last ned")
+                                                    )
+                                                    
+                                                    
+                                                  )#end fluidPage
+                                         ),#end tabPanel
+                                         tabPanel("Nødplakat",
+                                                  fluidPage(
+                                                    #h2("Nødplakat"),
+                                                    h4("Brukes ved kontakt med alarmsentral for angivelse av landingsplass for helikopter"),
+                                                    box(status="danger",
+                                                        title="Nødplakat",
+                                                        downloadButton("download_emergencyposter", "last ned")
+                                                    )
+                                                  )
+                                         )
+                                  )
+                                  
+                                )
+                       )
+                )#end tabBox 
+              )#end fluidPage    
+      ),
       tabItem(tabName="contact",
-              box(title="Kontaktinformasjon",
-                  width=12,
-                  h2("Kost og losji: Tor - 908 97 535"),
-                  h2("Transport og logistikk: Børge - xxxxxxxxx"),
-                  h2("Ansvarsområde her: Joachim - 952 41 924"),
-                  
-                  
+              box(width=12,
+                  boxProfile(
+                    src = "duk_logo.jpg",
+                    title = "Drøbak Undervannsklubb",
+                    subtitle = "(DUK)",
+                    boxProfileItemList(
+                      bordered = TRUE,
+                      boxProfileItem(
+                        title = "Styreleder, Tor Oppegård:",
+                        description = "908 97 535"
+                      ),
+                      boxProfileItem(
+                        title = "Media- og kommunikasjonsansvarlig, Joachim Brenøe:",
+                        description = "952 41 924"
+                      ),
+                      boxProfileItem(
+                        title = "Sikkerhetsansvarlig, Vebjørn Hanssen:",
+                        description = "404 35 973"
+                      )
                     )
+                  )
+              )
+            
       ),
       tabItem(tabName= "testing",
               h4("geolocation test"),
@@ -640,17 +902,12 @@ server <- function(input, output, session) {
   icon_dive4 <- awesomeIcons(icon = 'camera', iconColor='black', library='fa', markerColor = 'red')
   
 ############### leaflet geolocation map ##################  
-  #home coordinates
-  home_lat <- 59.92679 
-  home_long <- 10.77195
-  
-  
+ 
   #this is the static map:
     output$geolocmap <- renderLeaflet({
     leaflet() %>%
-      addTiles() #%>% 
-      #addAwesomeMarkers(lat = home_lat, lng = home_long, popup="du ble lokalisert her først",icon=icon_usr)
-  })  
+      addTiles()   
+      })  
   
   
     observe({
@@ -666,7 +923,7 @@ server <- function(input, output, session) {
         proxy  %>% 
           clearGroup(group="pos") %>% 
           addMarkers(lng=lng, lat=lat, 
-                     popup=paste("My location is:","<br>",
+                     popup=paste("Du er her:","<br>",
                                                    lng,"Longitude","<br>",
                                                    lat,"Latitude", "<br>",
                                                    "My accuracy is:",  "<br>",
@@ -701,7 +958,33 @@ server <- function(input, output, session) {
     
   })
   
-  
+    observe({
+      if(!is.null(input$lat)){
+        
+        lat <- input$lat
+        lng <- input$long
+        acc <- input$accuracy
+        time <- input$time
+        
+        proxy <- leafletProxy("mainmap")
+        
+        proxy  %>% 
+          clearGroup(group="pos") %>% 
+          addMarkers(lng=lng, lat=lat, 
+                     popup=paste("My location is:","<br>",
+                                 lng,"Longitude","<br>",
+                                 lat,"Latitude", "<br>",
+                                 "My accuracy is:",  "<br>",
+                                 acc, "meters"),
+                     group="pos") %>%
+          addCircles(lng=lng, lat=lat, radius=acc, group="pos") 
+        
+      }
+      
+    })
+    
+    
+    
   output$divemap1 <- renderLeaflet({
     leaflet() %>%
       addTiles() %>% 
@@ -712,7 +995,39 @@ server <- function(input, output, session) {
       
   })
   
-   
+################# dowload buttons #######################
+  output$download_alarmplan_dykkeulykke <- downloadHandler(
+    filename = "alarmplan_dykkeulykke.pdf",
+    content = function(file) {
+      file.copy("www/alarmplan_dykkeulykke.pdf", file)
+    })
+  
+  output$download_alarmplan_savnetdykker <- downloadHandler(
+    filename = "alarmplan_savnet_dykker.pdf",
+    content = function(file) {
+      file.copy("www/alarmplan_savnet_dykker.pdf", file)
+    })
+
+  output$download_alarmplan_savnetdykker <- downloadHandler(
+    filename = "alarmplan_savnet_dykker.pdf",
+    content = function(file) {
+      file.copy("www/alarmplan_savnet_dykker.pdf", file)
+    })
+
+  output$download_alarmplan_livlosdykker <- downloadHandler(
+    filename = "alarmplan_savnet_skadet_livlos_dykker.pdf",
+    content = function(file) {
+      file.copy("www/alarmplan_savnet_skadet_livlos_dykker.pdf", file)
+    })
+    
+
+  output$download_emergencyposter <- downloadHandler(
+    filename = "nodplakat.pdf",
+    content = function(file) {
+      file.copy("www/nodplakat.pdf", file)
+    })
+  
+  
   
   }
 
