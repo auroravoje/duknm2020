@@ -23,16 +23,16 @@ ui <- dashboardPage(skin="black",
                           class = "dropdown")
                   ),
   dashboardSidebar(sidebarMenu(id="menu",
-                               menuItem("Velkommen", tabName = "welcome", icon=icon("cake")),
-                               menuItem("Transport og logistikk", tabName = "logistics", icon=icon("car")),
-                               menuItem("Områdekart", tabName = "map", icon=icon("map-signs")),
                                menuItem("Timeplan og områdekart", tabName = "timetable", icon=icon("calendar-alt")),
+                               #menuItem("Velkommen", tabName = "welcome", icon=icon("cake")),
+                               #menuItem("Transport og logistikk", tabName = "logistics", icon=icon("car")),
+                               menuItem("Utstyr & Logistikk", tabName = "equipment", icon=icon("cubes")),
+                               #menuItem("Områdekart", tabName = "map", icon=icon("map-signs")),
                                menuItem("Dykkeplasser", tabName = "divesites", icon=icon("flag")),
-                               menuItem("Utstyr & Info", tabName = "equipment", icon=icon("cubes")),
                                menuItem("HMS og Sikkerhet", tabName = "safety", icon=icon("thermometer-empty")),
-                               menuItem("Kontakt", tabName = "contact", icon=icon("phone")),
-                               menuItem("Sponsorer", tabName = "sponsors", icon=icon("gift")),
-                               menuItem("Test geolokasjon", tabName = "testing", icon=icon("chart-bar"))
+                               menuItem("Kontakt", tabName = "contact", icon=icon("phone"))
+                               #menuItem("Sponsorer", tabName = "sponsors", icon=icon("gift"))#,
+                               #menuItem("Test geolokasjon", tabName = "testing", icon=icon("chart-bar"))
   )),
   dashboardBody(
     ##background color:
@@ -114,21 +114,22 @@ ui <- dashboardPage(skin="black",
     
     
     tabItems(
-      tabItem(tabName="welcome",
-              #h2("Velkomstfane her")
-              widgetUserBox(
-                width=12,
-                title = "NM i Undervannsfoto",
-                subtitle = "10. - 13. September 2020",
-                type = NULL,
-                src = "duknm_logo.jpg",
-                background = TRUE,
-                backgroundUrl = "temporary_jellyfish2.jpg",
-                closable = FALSE,
-                "Velkommen!",
-                footer = "All informasjon du måtte trenge i løpet av NM finner du i sidemenyen. Hilsen Drøbak Undervannsklubb."
-              )
-      ),
+      # tabItem(tabName="welcome",
+      #         #h2("Velkomstfane her")
+      #         widgetUserBox(
+      #           width=12,
+      #           collapsed=TRUE,
+      #           title = "NM i Undervannsfoto",
+      #           subtitle = "10. - 13. September 2020",
+      #           type = NULL,
+      #           src = "duknm_logo.jpg",
+      #           background = TRUE,
+      #           backgroundUrl = "temporary_jellyfish2.jpg",
+      #           closable = FALSE,
+      #           "Velkommen!",
+      #           footer = "All informasjon du måtte trenge i løpet av NM finner du i sidemenyen. Hilsen Drøbak Undervannsklubb."
+      #         )
+      # ),
       tabItem(tabName="logistics",
               h2("Ved Ankomst (prosedyre nedenfor)")
              
@@ -146,6 +147,24 @@ ui <- dashboardPage(skin="black",
         
       ),
       tabItem(tabName="timetable",
+              fluidRow(
+                widgetUserBox(
+                  width=12,
+                  collapsed=TRUE,
+                  title = "NM i Undervannsfoto",
+                  subtitle = "10. - 13. September 2020",
+                  type = NULL,
+                  src = "duknm_logo.jpg",
+                  background = TRUE,
+                  backgroundUrl = "temporary_jellyfish2.jpg",
+                  closable = FALSE,
+                  "Velkommen!",
+                  footer = "All informasjon du måtte trenge i løpet av NM finner du i denne appen. 
+                  Timeplan, kart over arrangementområdet og parkering finner du nedenfor. 
+                  Kartet kan zoomes og markørene kan trykkes på for ytterligere informasjon.
+                  Sjekk også ut sidemenyen ved å klikke på knappen i øvre venstre hjørne."
+                )
+              ),
               h2("Timeplan"),
               fluidRow(
                 tabBox(width = 12,
@@ -153,7 +172,7 @@ ui <- dashboardPage(skin="black",
                                 fluidRow(
                                   socialBox(
                                     width=12,
-                                    title = "Timeplan dag 1",
+                                    title = "Timeplan dag 1 - Torsdag",
                                     subtitle = "10.09.2020",
                                     src = "duk_logo.jpg",
                                     comments = tagList(
@@ -200,63 +219,88 @@ ui <- dashboardPage(skin="black",
                                 fluidRow(
                                   socialBox(
                                     width=12,
-                                    title = "Timeplan dag 2",
+                                    title = "Timeplan dag 2 - Fredag",
                                     subtitle = "12.09.2020",
                                     src = "duk_logo.jpg",
                                     comments = tagList(
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Frokost",
-                                        date = "07:30 - 08:00",
-                                        "Sted: "
+                                        date = "08:00 - 09:00",
+                                        "Sted: Oscarsborg Hotell"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Rigging av utstyr",
-                                        date = "08:00 - 09:00",
-                                        "Sted: "
+                                        date = "09:00 - 09:30",
+                                        "Sted: Dykkepalasset"
+                                      ),
+                                      boxComment(
+                                        src = "scuba_flag.png",
+                                        title = "Briefing før Dykk 1",
+                                        date = "09:30 - 09:45",
+                                        "Sted: Dykkepalasset"
+                                      ),
+                                      boxComment(
+                                        src = "scuba_flag.png",
+                                        title = "Båtavgang Dykk 1",
+                                        date = "09:45",
+                                        "Sted: Oppmøte ved dykkebåten"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Dykk 1",
-                                        date = "09:00 - 11:30",
-                                        "Sted: "
+                                        date = "10:00 - 12:00",
+                                        "Sted: Lokasjon angis ved briefingen"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Lunsj",
-                                        date = "12:30 - 13:30",
-                                        "Sted: "
+                                        date = "12:00 - 13:00",
+                                        "Sted: Oscarsborg Hotell"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Rigging av utstyr",
-                                        date = "13:30 - 14:30",
-                                        "Sted: "
+                                        date = "13:00 - 13:30",
+                                        "Sted: Dykkepalasset"
+                                      ),
+                                      boxComment(
+                                        src = "scuba_flag.png",
+                                        title = "Briefing før Dykk 2",
+                                        date = "13:30 - 13:45",
+                                        "Sted: Dykkepalasset"
+                                      ),
+                                      boxComment(
+                                        src = "scuba_flag.png",
+                                        title = "Båtavgang Dykk 2",
+                                        date = "13:45",
+                                        "Sted: Oppmøte ved dykkebåten"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Dykk 2",
-                                        date = "14:30 - 17:00",
-                                        "Sted: "
+                                        date = "14:00 - 16:00",
+                                        "Sted: Lokasjon angis ved briefingen"
                                       ),
+                                      
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Innlevering av minnebrikker",
-                                        date = "17:00 - 18:00",
-                                        "Sted: "
+                                        date = "16:00 - 16:30",
+                                        "Sted: Dykkepalasset"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Felles middag",
                                         date = "20:00 - 21:00",
-                                        "Sted: Oscarsborg Hotell (se kart)"
+                                        "Sted: Oscarsborg Hotell"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Mingling i baren",
                                         date = "21:00 - ",
-                                        "Sted: Oscarsborg Hotell (se kart)"
+                                        "Sted: Oscarsborg Hotell"
                                       )
                                     ),#end tagsList
                                     footer = "For detaljert stedslokasjon se kart."
@@ -269,57 +313,88 @@ ui <- dashboardPage(skin="black",
                                 fluidRow(
                                   socialBox(
                                     width=12,
-                                    title = "Timeplan dag 3",
+                                    title = "Timeplan dag 3 - Lørdag",
                                     subtitle = "12.09.2020",
                                     src = "duk_logo.jpg",
                                     comments = tagList(
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Frokost",
-                                        date = "07:30 - 08:00",
+                                        date = "08:00 - 09:00",
                                         "Sted: Oscarsborg Hotell "
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Rigging av utstyr",
-                                        date = "08:00 - 09:00",
-                                        "Sted: "
+                                        date = "09:00 - 09:30",
+                                        "Sted: Dykkepalasset"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
-                                        title = "Dykk 1",
-                                        date = "09:00 - 11:30",
-                                        "Sted: "
+                                        title = "Briefing før Dykk 3",
+                                        date = "09:30 - 09:45",
+                                        "Sted: Dykkepalasset"
+                                      ),
+                                      boxComment(
+                                        src = "scuba_flag.png",
+                                        title = "Båtavgang Dykk 3",
+                                        date = "09:45",
+                                        "Sted: Oppmøte ved dykkebåten"
+                                      ),
+                                      boxComment(
+                                        src = "scuba_flag.png",
+                                        title = "Dykk 3",
+                                        date = "10:00 - 12:00",
+                                        "Sted: Lokasjon angis ved briefingen"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Lunsj",
-                                        date = "12:30 - 13:30",
-                                        "Sted: "
+                                        date = "12:00 - 13:00",
+                                        "Sted: Oscarsborg Hotell"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Rigging av utstyr",
-                                        date = "13:30 - 14:30",
-                                        "Sted: "
+                                        date = "13:00 - 13:30",
+                                        "Sted: Dykkepalasset"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
-                                        title = "Dykk 2",
-                                        date = "14:30 - 16:30",
-                                        "Sted: "
+                                        title = "Briefing før Dykk 4",
+                                        date = "13:30 - 13:45",
+                                        "Sted: Dykkepalasset"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
-                                        title = "Innlevering av minnebrikker",
-                                        date = "16:30 - 17:30",
-                                        "Sted: "
+                                        title = "Båtavgang Dykk 4",
+                                        date = "13:45",
+                                        "Sted: Oppmøte ved dykkebåten"
                                       ),
+                                      boxComment(
+                                        src = "scuba_flag.png",
+                                        title = "Dykk 4",
+                                        date = "13:00 - 16:00",
+                                        "Sted: Lokasjon angis ved briefingen"
+                                      ),
+                                      boxComment(
+                                        src = "scuba_flag.png",
+                                        title = "Innlevering og utlevering av minnebrikker",
+                                        date = "16:00 - 17:00",
+                                        "Sted: Dykkepalasset"
+                                      ),
+                                      boxComment(
+                                        src = "scuba_flag.png",
+                                        title = "Innlevering av bilder",
+                                        date = "16:00 - 19:00",
+                                        "Sted: Dykkepalasset"
+                                      ),
+                                      
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Festmiddag",
                                         date = "19:00 - 21:00",
-                                        "Sted: Hovedfortet Oscarsborg (se kart)"
+                                        "Sted: Hovedfortet Oscarsborg"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
@@ -336,7 +411,7 @@ ui <- dashboardPage(skin="black",
                                 fluidRow(
                                   socialBox(
                                     width=12,
-                                    title = "Timeplan dag 4",
+                                    title = "Timeplan dag 4 - Søndag",
                                     subtitle = "13.09.2020",
                                     src = "duk_logo.jpg",
                                     comments = tagList(
@@ -361,7 +436,7 @@ ui <- dashboardPage(skin="black",
                                       boxComment(
                                         src = "scuba_flag.png",
                                         title = "Hjemreise",
-                                        date = "12:00 - 13:00",
+                                        date = "12:00",
                                         "Takk for nå og god tur hjem! :)"
                                       )
                                     ),
@@ -371,23 +446,24 @@ ui <- dashboardPage(skin="black",
                                 
                        )
                        
-                ),
+                )
+              ),  #end fluidRow,
                 h2("Områdekart"),
                 fluidRow(
                   box(title = "Trykk på markørene for info",
                       width=12,
-                      status = "info",
+                      status = "primary",
                       collapsible=F,
                       collapsed=F,
                       leafletOutput("mainmap"))
                 )
-              )  #end fluidRow
+              
               
       ),
       tabItem(tabName="divesites",
               box(title = "Oversikt aktuelle dykkeplasser for gjennomføring av NM",
                   width=12,
-                  status = "info",
+                  status = "primary",
                   collapsible=F,
                   collapsed=F,
                   h4("For detaljert informasjon om dykkeplassene trykk på markørene på kartet."),
@@ -400,69 +476,83 @@ ui <- dashboardPage(skin="black",
                 
                 box(title="Før Ankomst",
                     width=12,
-                    box(title="Utfyllende info:",
-                        width=12,
-                        collapsible=T,
-                        collapsed = T,
-                        p("Før ankomst bes deltagerne å ha fylt sine flaskesett."), 
-                        p("For de av deltagerne som har mulighet, anbefales det å medbringe ekstra flaskesett."),
-                        br(),
-                        p("Drøbak Undervannsklubb vil stille ekstra flaskesett til disposisjon, både enkle og doble."), 
-                        p("Det er viktig at deltagere som har behov for dette melder ifra til arrangøren så fort som mulig."),
+                    status="primary",
+                    collapsible=T,
+                    collapsed = T,
+                    column(width=10,
+                    p("Før ankomst bes deltagerne å ha fylt sine flaskesett."), 
+                    p("For de av deltagerne som har mulighet, anbefales det å medbringe ekstra flaskesett."),
+                    br(),
+                    p("Drøbak Undervannsklubb vil stille ekstra flaskesett til disposisjon, både enkle og doble."), 
+                    p("Det er viktig at deltagere som har behov for dette melder ifra til arrangøren så fort som mulig."),
+                    ),
+                    column(width=2,
+                      img(src = "divetank.jpg", height = 100, width = 80)
                     )
                 ),
-                box(title="Ved Ankomst Drøbak Undervannsklubb",
+                box(title="Ved Ankomst DUK",
                     width=12,
-                    box(title="Utfyllende info:",
-                        width=12,
-                        collapsible=T,
-                        collapsed = T,
-                        p("Ved ankomst er det nødvendig at deltagerne følger arrangørens retningslinjer for logistikk av utstyr og fylling av gass."), 
-                        p("Ved ankomst må deltagerne lesse av sitt utstyr ved klubbhuset til Drøbak Undervannsklubb." ),
-                        p("Utstyr som avleveres vil merkes med deltagernes navn, adresse og telefonnummer."),
-                        p("Fra Steinbrygga ved klubbhuset vil arrangøren frakte utstyret over til Oscarsborg, hvor arrangementet avvikles."),
-                        p("Arrangøren anbefaler at kamera og annet ømfintlig utstyr fraktes til Oscarsborg av deltagerne selv.")
-                    )
+                    status="primary",
+                    collapsible=T,
+                    collapsed = T,
+                    column(width=10,
+                    p("Ved ankomst er det nødvendig at deltagerne følger arrangørens retningslinjer for logistikk av utstyr og fylling av gass."), 
+                    p("Ved ankomst må deltagerne lesse av sitt utstyr ved klubbhuset til Drøbak Undervannsklubb." ),
+                    p("Utstyr som avleveres vil merkes med deltagernes navn, adresse og telefonnummer."),
+                    p("Fra Steinbrygga ved klubbhuset vil arrangøren frakte utstyret over til Oscarsborg, hvor arrangementet avvikles."),
+                    p("Arrangøren anbefaler at kamera og annet ømfintlig utstyr fraktes til Oscarsborg av deltagerne selv.")
+                    ),
+                    column(width=2,
+                           img(src="divecam.jpg",height=100, width=120)
+                           )
                 ),
                 box(title="Ved ankomst Oscarsborg Festning",
                     width=12,
-                    box(title="Utfyllende info:",
-                        width=12,
-                        collapsible=T,
-                        collapsed = T,
-                        p("Deltagerne bes følge arrangørens øvrige henvisninger knyttet til overnatting og arrangementets timeplan."), 
-                        p("Utstyr som arrangøren har fraktet over til Oscarsborg tilgjengeliggjøres for deltagerne på angitt område."), 
-                        p("Det vil i den forbindelse bli kunngjort rutiner for oppbevaring av utstyr under arrangementet."),
-                        p("Arrangøren anbefaler at deltagerne etter ankomst setter opp og sjekker utstyret sitt.")
-                    )
+                    status="primary",
+                    collapsible=T,
+                    collapsed = T,
+                    column(width=10,
+                    p("Deltagerne bes følge arrangørens øvrige henvisninger knyttet til overnatting og arrangementets timeplan."), 
+                    p("Utstyr som arrangøren har fraktet over til Oscarsborg tilgjengeliggjøres for deltagerne på angitt område."), 
+                    p("Det vil i den forbindelse bli kunngjort rutiner for oppbevaring av utstyr under arrangementet."),
+                    p("Arrangøren anbefaler at deltagerne etter ankomst setter opp og sjekker utstyret sitt.")
+                    ),
+                    column(width=2,
+                           img(src="divegear_set.jpg",height=110, width=110)
+                           )
                 ),
                 box(title="Under Arrangementet",
                     width=12,
-                    box(title="Utfyllende info:",
-                        width=12,
-                        collapsible=T,
-                        collapsed = T,
-                        p("Arrangøren stiller med kapasitet for fylling av flaskesett under hele arrangementet.") ,
-                        p("Deltagerne bes avlevere sine flaskesett på angitt område umiddelbart etter hvert gjennomførte dykk."), 
-                        p("Arrangøren vil markere flaskesettet med deltagerens nummer og deretter fylle samtlige avleverte flaskesett."),
-                        p("Arrangøren vil også stille til rådighet et utvalg ferdig fylte flaskesett."),
-                        p("Det vil være mulig å avlevere flaskesett også på andre tidspunkter, 
+                    status="primary",
+                    collapsible=T,
+                    collapsed = T,
+                    column(width=10,
+                    p("Arrangøren stiller med kapasitet for fylling av flaskesett under hele arrangementet.") ,
+                    p("Deltagerne bes avlevere sine flaskesett på angitt område umiddelbart etter hvert gjennomførte dykk."), 
+                    p("Arrangøren vil markere flaskesettet med deltagerens nummer og deretter fylle samtlige avleverte flaskesett."),
+                    p("Arrangøren vil også stille til rådighet et utvalg ferdig fylte flaskesett."),
+                    p("Det vil være mulig å avlevere flaskesett også på andre tidspunkter, 
                             men arrangøren kan da ikke garantere for at disse vil være fylt i tide for neste dykk.")
-                    )
+                    ),
+                    column(width=2,
+                           img(src="tag.jpg",height=100,width=90)
+                           )
                 ),
                 box(title="Ved Avreise",
                     width=12,
-                    box(title="Utfyllende info:",
-                        width=12,
-                        collapsible=T,
-                        collapsed = T,
-                        p("Deltagerne følger arrangørens henvisninger knyttet til utsjekk fra hotellet og båt tilbake til Drøbak."),
-                        p("Utstyr som arrangøren skal frakte tilbake til Drøbak Undervannsklubb sitt klubbhus må avleveres på område som angis av arrangøren under arrangementet."),
-                        p("Arrangøren anbefaler også ved avreise at deltagerne selv frakter med seg kamera og annet ømfintlig utstyr."),
-                        p("Utstyr som avleveres vil merkes med deltagernes navn, adresse og telefonnummer.")
-                        
+                    status="primary",
+                    collapsible=T,
+                    collapsed = T,
+                    column(width=10,
+                    p("Deltagerne følger arrangørens henvisninger knyttet til utsjekk fra hotellet og båt tilbake til Drøbak."),
+                    p("Utstyr som arrangøren skal frakte tilbake til Drøbak Undervannsklubb sitt klubbhus må avleveres på område som angis av arrangøren under arrangementet."),
+                    p("Arrangøren anbefaler også ved avreise at deltagerne selv frakter med seg kamera og annet ømfintlig utstyr."),
+                    p("Utstyr som avleveres vil merkes med deltagernes navn, adresse og telefonnummer.")
+                    ),
+                    column(width=2,
+                           img(src="suitcase.jpg", height=110,width=80)
+                      
                     )
-                    
                 )
                 
                 
@@ -491,16 +581,16 @@ ui <- dashboardPage(skin="black",
                                             description = "908 97 535"
                                           ),
                                           boxProfileItem(
-                                            title = "Stedfortreder:",
+                                            title = "Fortreder:",
                                             description = "952 41 924"
                                           ),
                                           boxProfileItem(
                                             title = "Forsikring:",
-                                            description = "Gjennom NDF"
+                                            description = "Via NDF"
                                           ),
                                           boxProfileItem(
                                             title = "Sted:",
-                                            description = "Oscarsborg Festning"
+                                            description = "Oscarsborg"
                                           )
                                         )
                                       )
@@ -515,7 +605,7 @@ ui <- dashboardPage(skin="black",
                                         boxProfileItemList(
                                           bordered = TRUE,
                                           boxProfileItem(
-                                            title = "Kontaktperson:",
+                                            title = "Kontakt:",
                                             description = "981 98 772"
                                           )
                                         )
@@ -606,16 +696,16 @@ ui <- dashboardPage(skin="black",
                                 fluidPage(
                                   box(title="1)	 All dykking i regi av DUK skal foregå med utnevnt dykkeleder (DL).",
                                       width = 12,
-                                      status = "info"),
+                                      status = "primary"),
                                   box(title = "2)	 Dykker skal følge DLs retningslinjer og instrukser.",
                                       width=12,
-                                      status = "info"),
+                                      status = "primary"),
                                   box(title= "3)	Solo dykking skal ikke tillates hvor DUK står som arrangør",
                                       width=12,
-                                      status = "info"),
+                                      status = "primary"),
                                   box(title="4)	 Sørg for å være opplagt og i god nok form, både fysisk og mentalt til å dykke.",
                                       width=12,
-                                      status = "info",
+                                      status = "primary",
                                       box(title="Utfyllende informasjon:",
                                           width=12,
                                           collapsible=TRUE,
@@ -632,7 +722,7 @@ ui <- dashboardPage(skin="black",
                                   ), 
                                   box(title="5)	 Planlegg dykket med meddykker(e), og avtal dette med DL. ref.",
                                       width=12,
-                                      status = "info",
+                                      status = "primary",
                                       box(title="Utfyllende informasjon:",
                                           width=12,
                                           collapsible=TRUE,
@@ -647,7 +737,7 @@ ui <- dashboardPage(skin="black",
                                   ),
                                   box(title="6)	 Gjennomfør kameratsjekk, avklar rutiner for dykket og følg prosedyre:",
                                       width=12,
-                                      status = "info",
+                                      status = "primary",
                                       box(title="Utfyllende informasjon:",
                                           width=12,
                                           collapsible=TRUE,
@@ -668,14 +758,14 @@ ui <- dashboardPage(skin="black",
                                   box(title="7)	 Alle dykkere skal ha dykkersertifikat og har fylt 15 år. Du er selv ansvarlig for å være kvalifisert til dykket. 
                       Dykker under 15 år skal meddykker være nærmeste foresatt",
                                       width=12,
-                                      status = "info"),
+                                      status = "primary"),
                                   box(title="8)	 Avtal rutiner for samhold.",
                                       width=12,
-                                      status = "info"
+                                      status = "primary"
                                   ),
                                   box(title="9)	 Planlegg gassforbruk og nok reservegass. Koordineres med meddykker(e).",
                                       width=12,
-                                      status = "info",
+                                      status = "primary",
                                       box(title="Utfyllende informasjon:",
                                           width=12,
                                           collapsible=TRUE,
@@ -688,7 +778,7 @@ ui <- dashboardPage(skin="black",
                                   ),
                                   box(title="10)	 Alle dykkere er selv ansvarlig for å kontrollere at det dykkes med riktig pustegass på flaskene.",
                                       width=12,
-                                      status = "info",
+                                      status = "primary",
                                       box(title="Utfyllende informasjon:",
                                           width=12,
                                           collapsible=TRUE,
@@ -705,7 +795,7 @@ ui <- dashboardPage(skin="black",
                                   ),
                                   box(title="11)	 Følg prosedyre ved avsluttet dykk. Bruk av SMB er anbefalt. DUK skiller ikke mellom farge på SMB:",
                                       width=12,
-                                      status = "info",
+                                      status = "primary",
                                       box(title="Utfyllende informasjon:",
                                           width=12,
                                           collapsible=TRUE,
@@ -725,7 +815,7 @@ ui <- dashboardPage(skin="black",
                                   ),
                                   box(title="12) Informasjon til gjestedykker, eller ny i klubben.",
                                       width=12,
-                                      status = "info",
+                                      status = "primary",
                                       box(title="Utfyllende informasjon:",
                                           width=12,
                                           collapsible=TRUE,
@@ -740,7 +830,7 @@ ui <- dashboardPage(skin="black",
                                   ),
                                   box(title="13)	 Sørg for at utstyret du dykker med er i forsvarlig teknisk stand.",
                                       width=12,
-                                      status = "info",
+                                      status = "primary",
                                       box(title="Utfyllende informasjon:",
                                           width=12,
                                           collapsible=TRUE,
@@ -756,30 +846,28 @@ ui <- dashboardPage(skin="black",
                                   ),
                                   box(title="14)	 Ved dykking i mørket skal dykkere være utstyrt med reservelykt som fungerer",
                                       width=12,
-                                      status = "info"),
+                                      status = "primary"),
                                   box(title="15)	 Dykkere registrerer seg elektronisk før og etter dykk",
                                       width=12,
-                                      status = "info"),
+                                      status = "primary"),
                                   box(title="16)	 Før fylling av flasker skal flasker kontrolleres for gyldig kontrollmerke",
                                       width=12,
-                                      status = "info"),
+                                      status = "primary"),
                                   box(title="17)	 Ved dykking fra klubbhuset skal ferga ved Oscarsborg festning varsles. Se oppslag",
                                       width=12,
-                                      status = "info"),
+                                      status = "primary"),
                                   box(title="18)	 Følg parkeringsreglene. Se oppslag",
                                       width=12,
-                                      status = "info"),
+                                      status = "primary"),
                                   box(title="19)	 Dykkere skal være kjent med DUKs vedtekter",
                                       width=12,
-                                      status = "info")
+                                      status = "primary")
                                 )#end fluidPage
                        ),
                        tabPanel("Alarmplaner ved ulykker",
                                 fluidPage(
                                   h4("Last ned alarmplanen og fyll ut datane før du dra ut, eller mens du sitter og venter I båten."), 
                                   h4("I en opphetet situasjon er det ikke sikkert du husker telefonnummeret ditt eller hvor du er."),
-                                  tabBox(width=12,
-                                         tabPanel("Alarmplaner",
                                                   
                                                   fluidPage(
                                                     box(status="danger",
@@ -793,24 +881,16 @@ ui <- dashboardPage(skin="black",
                                                     box(status="danger",
                                                         title="Alarmplan savnet- skadet- livløs dykker",
                                                         downloadButton("download_alarmplan_livlosdykker", "last ned")
-                                                    )
-                                                    
-                                                    
-                                                  )#end fluidPage
-                                         ),#end tabPanel
-                                         tabPanel("Nødplakat",
-                                                  fluidPage(
-                                                    #h2("Nødplakat"),
-                                                    h4("Brukes ved kontakt med alarmsentral for angivelse av landingsplass for helikopter"),
+                                                    ),
                                                     box(status="danger",
                                                         title="Nødplakat",
                                                         downloadButton("download_emergencyposter", "last ned")
                                                     )
-                                                  )
-                                         )
-                                  )
-                                  
-                                )
+                                                    
+                                                    
+                                                  )#end fluidPage
+                      
+                                )#end fluidPage
                        )
                 )#end tabBox 
               )#end fluidPage    
@@ -824,17 +904,18 @@ ui <- dashboardPage(skin="black",
                     boxProfileItemList(
                       bordered = TRUE,
                       boxProfileItem(
-                        title = "Styreleder, Tor Oppegård:",
+                        title = "Styreleder:",
                         description = "908 97 535"
                       ),
                       boxProfileItem(
-                        title = "Media- og kommunikasjonsansvarlig, Joachim Brenøe:",
+                        title = "Media/kommunikasjon:",
                         description = "952 41 924"
                       ),
                       boxProfileItem(
-                        title = "Sikkerhetsansvarlig, Vebjørn Hanssen:",
+                        title = "Sikkerhetsansvarlig:",
                         description = "404 35 973"
                       )
+                      
                     )
                   )
               )
@@ -901,6 +982,16 @@ server <- function(input, output, session) {
   icon_dive3 <- awesomeIcons(icon = 'camera', iconColor='black', library='fa', markerColor = 'blue')
   icon_dive4 <- awesomeIcons(icon = 'camera', iconColor='black', library='fa', markerColor = 'red')
   
+  content_boat_to <- paste(sep = "<br/>",
+                           "Båt Drøbak - Oscarsborg",
+                           "<b><a href='https://www.forsvarsbygg.no/no/festningene/finn-din-festning/oscarsborg-festning/fergetider-billett-og-parkering/'>Rutetabell</a></b>"
+  )
+  
+  content_boat_from <- paste(sep = "<br/>",
+                             "Båt Oscarsborg - Drøbak",
+                             "<b><a href='https://www.forsvarsbygg.no/no/festningene/finn-din-festning/oscarsborg-festning/fergetider-billett-og-parkering/'>Rutetabell</a></b>"
+  )
+  
 ############### leaflet geolocation map ##################  
  
   #this is the static map:
@@ -939,15 +1030,16 @@ server <- function(input, output, session) {
 ############### leaflet main map ##################  
   output$mainmap <- renderLeaflet({
     leaflet() %>%
-      addTiles() %>% 
+      addTiles() %>% #59.676430, 10.615220
+      setView(lat=59.676430, lng=10.615220, zoom=13) %>% 
       addAwesomeMarkers(lat = 59.678457, lng = 10.624653, popup="DUK klubbhus og Steinbrygga",icon=icon_home) %>% 
       addAwesomeMarkers(lat = 59.673461, lng = 10.621689, popup="Parkering - Husvikveien",icon=icon_car) %>% 
       addAwesomeMarkers(lat = 59.664597, lng = 10.628475, popup="Parkering - Bankløkka",icon=icon_car) %>% 
       addAwesomeMarkers(lat = 59.671528, lng = 10.627083, popup="Parkering - Sagajordet",icon=icon_car) %>% 
-      addAwesomeMarkers(lat = 59.670147, lng = 10.622890, popup="Båt Drøbak - Oscarsborg",icon=icon_boat) %>%  
+      addAwesomeMarkers(lat = 59.670147, lng = 10.622890, popup=content_boat_to,icon=icon_boat) %>%  
       #on the event site:
       
-      addAwesomeMarkers(lat = 59.676348, lng = 10.607065, popup="Båt Oscarsborg - Drøbak",icon=icon_boat) %>% 
+      addAwesomeMarkers(lat = 59.676348, lng = 10.607065, popup=content_boat_from,icon=icon_boat) %>% 
       addAwesomeMarkers(lat = 59.678427, lng = 10.604004, popup="Dykkepalasset - Rigging av utstyr",icon=icon_palace) %>% 
       addAwesomeMarkers(lat = 59.675737, lng = 10.605976, popup="Hotell - Overnatting",icon=icon_hotel) %>% 
       addAwesomeMarkers(lat = 59.673897, lng = 10.606978, popup="Oscarsborg - Omvisning",icon=icon_landmark) %>% 
@@ -971,11 +1063,13 @@ server <- function(input, output, session) {
         proxy  %>% 
           clearGroup(group="pos") %>% 
           addMarkers(lng=lng, lat=lat, 
-                     popup=paste("My location is:","<br>",
-                                 lng,"Longitude","<br>",
-                                 lat,"Latitude", "<br>",
-                                 "My accuracy is:",  "<br>",
-                                 acc, "meters"),
+                     # popup=paste("My location is:","<br>",
+                     #             lng,"Longitude","<br>",
+                     #             lat,"Latitude", "<br>",
+                     #             "My accuracy is:",  "<br>",
+                     #             acc, "meters"),
+                     popup=paste("Du er her"),
+                     
                      group="pos") %>%
           addCircles(lng=lng, lat=lat, radius=acc, group="pos") 
         
@@ -988,6 +1082,7 @@ server <- function(input, output, session) {
   output$divemap1 <- renderLeaflet({
     leaflet() %>%
       addTiles() %>% 
+      setView(lat=59.691951, lng=10.595297, zoom=12) %>% 
       addAwesomeMarkers(lat = 59.690536, lng = 10.593138, popup="Tronstadodden",icon=icon_dive1) %>% 
       addAwesomeMarkers(lat = 59.702275, lng = 10.592654, popup="Askholmene",icon=icon_dive2) %>%  
       addAwesomeMarkers(lat = 59.678764, lng = 10.609147, popup="Kaholmen",icon=icon_dive3) %>% 
