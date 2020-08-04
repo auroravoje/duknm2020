@@ -12,6 +12,7 @@ library(leaflet.extras)
 library(shinyWidgets)
 library(tidyverse)
 library(shinyWidgets)
+library(leafpop)
 
 
 ui <- dashboardPage(skin="black",
@@ -976,6 +977,7 @@ server <- function(input, output, session) {
   icon_hotel <- awesomeIcons(icon = 'hotel',iconColor = 'black',library = 'fa',markerColor = "red")
   icon_landmark <- awesomeIcons(icon = 'university',iconColor = 'black',library = 'fa',markerColor = "red")
   icon_dinner <- awesomeIcons(icon = 'trophy',iconColor = 'black',library = 'fa',markerColor = "red")
+  icon_jury <- awesomeIcons(icon='university',iconColor='black',library='fa', markerColor="red")
   
   icon_dive1 <- awesomeIcons(icon = 'camera', iconColor='black', library='fa', markerColor = 'green')
   icon_dive2 <- awesomeIcons(icon = 'camera', iconColor='black', library='fa', markerColor = 'purple')
@@ -991,6 +993,8 @@ server <- function(input, output, session) {
                              "Båt Oscarsborg - Drøbak",
                              "<b><a href='https://www.forsvarsbygg.no/no/festningene/finn-din-festning/oscarsborg-festning/fergetider-billett-og-parkering/'>Rutetabell</a></b>"
   )
+  
+  
   
 ############### leaflet geolocation map ##################  
  
@@ -1026,26 +1030,27 @@ server <- function(input, output, session) {
       
     })
   
-  
+    
 ############### leaflet main map ##################  
   output$mainmap <- renderLeaflet({
     leaflet() %>%
       addTiles() %>% #59.676430, 10.615220
       setView(lat=59.676430, lng=10.615220, zoom=13) %>% 
-      addAwesomeMarkers(lat = 59.678457, lng = 10.624653, popup="DUK klubbhus og Steinbrygga",icon=icon_home) %>% 
+      addAwesomeMarkers(lat = 59.678457, lng = 10.624653, popup=leafpop::popupImage("clubhouse_s.jpg"),icon=icon_home) %>% 
       addAwesomeMarkers(lat = 59.673461, lng = 10.621689, popup="Parkering - Husvikveien",icon=icon_car) %>% 
-      addAwesomeMarkers(lat = 59.664597, lng = 10.628475, popup="Parkering - Bankløkka",icon=icon_car) %>% 
-      addAwesomeMarkers(lat = 59.671528, lng = 10.627083, popup="Parkering - Sagajordet",icon=icon_car) %>% 
-      addAwesomeMarkers(lat = 59.670147, lng = 10.622890, popup=content_boat_to,icon=icon_boat) %>%  
+      addAwesomeMarkers(lat = 59.664597, lng = 10.628475, popup=leafpop::popupImage("parking_banklokka_s.jpg"),icon=icon_car) %>% 
+      addAwesomeMarkers(lat = 59.671528, lng = 10.627083, popup=leafpop::popupImage("parking_sagajordet_s.jpg"),icon=icon_car) %>% 
+      addAwesomeMarkers(lat = 59.670147, lng = 10.622890, popup=leafpop::popupImage("boat_drobak_oscarsborg_s.jpg"),icon=icon_boat) %>%  
       #on the event site:
       
-      addAwesomeMarkers(lat = 59.676348, lng = 10.607065, popup=content_boat_from,icon=icon_boat) %>% 
-      addAwesomeMarkers(lat = 59.678427, lng = 10.604004, popup="Dykkepalasset - Rigging av utstyr",icon=icon_palace) %>% 
-      addAwesomeMarkers(lat = 59.675737, lng = 10.605976, popup="Hotell - Overnatting",icon=icon_hotel) %>% 
-      addAwesomeMarkers(lat = 59.673897, lng = 10.606978, popup="Oscarsborg - Omvisning",icon=icon_landmark) %>% 
+      addAwesomeMarkers(lat = 59.676348, lng = 10.607065, popup=leafpop::popupImage("boat_oscarsborg_drobak_s.jpg"),icon=icon_boat) %>% 
+      addAwesomeMarkers(lat = 59.678427, lng = 10.604004, popup=leafpop::popupImage("divepalace_s.jpg"),icon=icon_palace) %>% 
+      addAwesomeMarkers(lat = 59.675737, lng = 10.605976, popup=leafpop::popupImage("hotel_s.jpg"),icon=icon_hotel) %>% 
+      addAwesomeMarkers(lat = 59.676137, lng = 10.605655, popup=leafpop::popupImage("guided_tour_s.jpg"),icon=icon_landmark) %>% 
       addAwesomeMarkers(lat = 59.678345, lng = 10.604299, popup="Oppmøte - dykkebåt",icon=icon_boat) %>% 
-      addAwesomeMarkers(lat = 59.673514, lng = 10.607124, popup="Festmiddag",icon=icon_dinner) 
-  
+      addAwesomeMarkers(lat = 59.673514, lng = 10.607124, popup="Festmiddag",icon=icon_dinner) %>% 
+      addAwesomeMarkers(lat = 59.677580, lng = 10.606661, popup=leafpop::popupImage("jury_s.jpg"),icon=icon_jury)
+
 
     
   })
@@ -1076,17 +1081,17 @@ server <- function(input, output, session) {
       }
       
     })
-    
-    
+   
+
     
   output$divemap1 <- renderLeaflet({
     leaflet() %>%
       addTiles() %>% 
       setView(lat=59.691951, lng=10.595297, zoom=12) %>% 
-      addAwesomeMarkers(lat = 59.690536, lng = 10.593138, popup="Tronstadodden",icon=icon_dive1) %>% 
-      addAwesomeMarkers(lat = 59.702275, lng = 10.592654, popup="Askholmene",icon=icon_dive2) %>%  
-      addAwesomeMarkers(lat = 59.678764, lng = 10.609147, popup="Kaholmen",icon=icon_dive3) %>% 
-      addAwesomeMarkers(lat = 59.673555, lng = 10.584954, popup="Bergholmen",icon=icon_dive4)
+      addAwesomeMarkers(lat = 59.690536, lng = 10.593138, popup=leafpop::popupImage("tronstad_s.jpg"),icon=icon_dive1) %>% 
+      addAwesomeMarkers(lat = 59.702275, lng = 10.592654, popup=leafpop::popupImage("askholmene_s.jpg"),icon=icon_dive2) %>%  
+      addAwesomeMarkers(lat = 59.678764, lng = 10.609147, popup=leafpop::popupImage("torpedobatteriet_s.jpg"),icon=icon_dive3) %>% 
+      addAwesomeMarkers(lat = 59.673555, lng = 10.584954, popup=leafpop::popupImage("bergholmen_s.jpg"),icon=icon_dive4)
       
   })
   
