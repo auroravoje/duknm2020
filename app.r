@@ -1,12 +1,8 @@
 #duk nm info app
 library(shiny)
 library(shinyjs)
-#library(shiny.semantic)
 library(shinydashboard)
-#library(ShinyRatingInput)
 library(shinydashboardPlus)
-#library(bs4Dash)
-#library(shinyEffects)
 library(leaflet)
 library(leaflet.extras)
 library(shinyWidgets)
@@ -221,7 +217,7 @@ ui <- dashboardPage(skin="black",
                                   socialBox(
                                     width=12,
                                     title = "Timeplan dag 2 - Fredag",
-                                    subtitle = "12.09.2020",
+                                    subtitle = "11.09.2020",
                                     src = "duk_logo.jpg",
                                     comments = tagList(
                                       boxComment(
@@ -457,7 +453,46 @@ ui <- dashboardPage(skin="black",
                       collapsible=F,
                       collapsed=F,
                       leafletOutput("mainmap"))
+                ),
+              
+              
+              box(
+                title = "Takk til våre sponsorer",
+                status = "primary",
+                width = NULL,
+                userList(
+                  userListItem(
+                    src = "sponsor_dm.jpg", 
+                    user_name = "Drøbak Marineservice", 
+                    description = "test"
+                  ),
+                  userListItem(
+                    src = "sponsor_dykkegarasjen.jpg", 
+                    user_name = "Dykkegarasjen", 
+                    description = "test"
+                  ),
+                  userListItem(
+                    src = "sponsor_gps.jpg", 
+                    user_name = "GPS", 
+                    description = "test"
+                  ),
+                  userListItem(
+                    src = "sponsor_gulen.png", 
+                    user_name = "Gulen Diving Resort", 
+                    description = "test"
+                  ),
+                  userListItem(
+                    src = "sponsor_oadk.jpg", 
+                    user_name = "OADK", 
+                    description = "test"
+                  ),
+                  userListItem(
+                    src = "sponsor_nekton.jpg", 
+                    user_name = "Nekton", 
+                    description = "test"
+                  )
                 )
+              )
               
               
       ),
@@ -976,8 +1011,9 @@ server <- function(input, output, session) {
   icon_palace <- awesomeIcons(icon = 'wrench',iconColor = 'black',library = 'fa',markerColor = "red")
   icon_hotel <- awesomeIcons(icon = 'hotel',iconColor = 'black',library = 'fa',markerColor = "red")
   icon_landmark <- awesomeIcons(icon = 'university',iconColor = 'black',library = 'fa',markerColor = "red")
-  icon_dinner <- awesomeIcons(icon = 'trophy',iconColor = 'black',library = 'fa',markerColor = "red")
+  icon_dinner <- awesomeIcons(icon = 'beer',iconColor = 'black',library = 'ion',markerColor = "red")
   icon_jury <- awesomeIcons(icon='university',iconColor='black',library='fa', markerColor="red")
+  icon_prize <- awesomeIcons(icon='trophy',iconColor='black',library='fa', markerColor="red")
   
   icon_dive1 <- awesomeIcons(icon = 'camera', iconColor='black', library='fa', markerColor = 'green')
   icon_dive2 <- awesomeIcons(icon = 'camera', iconColor='black', library='fa', markerColor = 'purple')
@@ -1048,7 +1084,8 @@ server <- function(input, output, session) {
       addAwesomeMarkers(lat = 59.675737, lng = 10.605976, popup=leafpop::popupImage("hotel_s.jpg"),icon=icon_hotel) %>% 
       addAwesomeMarkers(lat = 59.676137, lng = 10.605655, popup=leafpop::popupImage("guided_tour_s.jpg"),icon=icon_landmark) %>% 
       addAwesomeMarkers(lat = 59.678345, lng = 10.604299, popup="Oppmøte - dykkebåt",icon=icon_boat) %>% 
-      addAwesomeMarkers(lat = 59.673514, lng = 10.607124, popup="Festmiddag",icon=icon_dinner) %>% 
+      addAwesomeMarkers(lat = 59.673514, lng = 10.607124, popup="Festmiddag",icon=icon_dinner) %>%
+      addAwesomeMarkers(lat = 59.675333, lng = 10.605442, popup="Premieutdeling",icon=icon_prize) %>%
       addAwesomeMarkers(lat = 59.677580, lng = 10.606661, popup=leafpop::popupImage("jury_s.jpg"),icon=icon_jury)
 
 
