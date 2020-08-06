@@ -463,33 +463,33 @@ ui <- dashboardPage(skin="black",
                 userList(
                   userListItem(
                     src = "sponsor_dm.jpg", 
-                    user_name = "Drøbak Marineservice", 
-                    description = "test"
+                    #user_name = "Drøbak Marineservice", 
+                    description = "Drøbak Marineservice"
                   ),
                   userListItem(
                     src = "sponsor_dykkegarasjen.jpg", 
-                    user_name = "Dykkegarasjen", 
-                    description = "test"
+                    #user_name = "Dykkegarasjen", 
+                    description = "Dykkegarasjen"
                   ),
                   userListItem(
                     src = "sponsor_gps.jpg", 
-                    user_name = "GPS", 
-                    description = "test"
+                    #user_name = "GPS", 
+                    description = "GPS"
                   ),
                   userListItem(
                     src = "sponsor_gulen.png", 
-                    user_name = "Gulen Diving Resort", 
-                    description = "test"
+                    #user_name = "Gulen Diving Resort", 
+                    description = "Gulen Dive Resort"
                   ),
                   userListItem(
                     src = "sponsor_oadk.jpg", 
-                    user_name = "OADK", 
-                    description = "test"
+                    #user_name = "OADK", 
+                    description = "OADK"
                   ),
                   userListItem(
                     src = "sponsor_nekton.jpg", 
-                    user_name = "Nekton", 
-                    description = "test"
+                    #user_name = "Nekton", 
+                    description = "Nekton Diving"
                   )
                 )
               )
