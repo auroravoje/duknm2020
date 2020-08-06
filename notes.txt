@@ -1,5 +1,0 @@
-leafletProxy
-
-scaling for multiple users
-
-adjusting markers' appearance

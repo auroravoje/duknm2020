@@ -32,16 +32,8 @@ ui <- dashboardPage(skin="black",
                                #menuItem("Test geolokasjon", tabName = "testing", icon=icon("chart-bar"))
   )),
   dashboardBody(
-    ##background color:
-    # tags$head(tags$style(HTML('
-    # 
-    #                             /* body */
-    #                             .content-wrapper, .right-side {
-    #                             background-color: #ebebe8;
-    #                             }
-    # 
-    #                             '))),
-    #
+    #google analytics
+    tags$head(includeHTML(("google-analytics-dev.html"))),
     
 ##################################### geo location ################################################
     
@@ -428,7 +420,7 @@ ui <- dashboardPage(skin="black",
                                         src = "scuba_flag.png",
                                         title = "Premieutdeling",
                                         date = "10:00 - 12:00",
-                                        "Sted: "
+                                        "Sted: Auditoriet ved Oscarsborg Hotell"
                                       ),
                                       boxComment(
                                         src = "scuba_flag.png",
@@ -750,7 +742,7 @@ ui <- dashboardPage(skin="black",
                                             tags$li("Det er ingen grunn til å føle skam å trekke seg før, eller under et dykk når man ikke føler seg i form."),
                                             tags$li("Ta hensyn til strøm, vind, temperatur, is, sikt i vannet og båttrafikk ved planlegging av dykket."),
                                             tags$li("Avtal maks dybde og total dykketid og meddel dykkeleder i god tid."),
-                                            tags$li("Ved «hopp» fra båt skal ut-ventil på tørrdrakt være stengt, luft i vinge/vest, pusteventil i munnen og maske på."),
+                                            tags$li("Ved 'hopp' fra båt skal ut-ventil på tørrdrakt være stengt, luft i vinge/vest, pusteventil i munnen og maske på."),
                                             tags$li("Gi DL OK-signal, eller signal om hjelp i tilfelle problemer."),
                                             tags$li("Hold sammen med meddykker(e) under hele nedstigningen, og kontroller underveis for eventuelle lekkasjer eller andre forhold, og vær forberedt å kunne hjelpe.")
                                           )
@@ -902,7 +894,7 @@ ui <- dashboardPage(skin="black",
                        ),
                        tabPanel("Alarmplaner ved ulykker",
                                 fluidPage(
-                                  h4("Last ned alarmplanen og fyll ut datane før du dra ut, eller mens du sitter og venter I båten."), 
+                                  h4("Last ned alarmplanen og fyll ut datane før du dra ut, eller mens du sitter og venter i båten."), 
                                   h4("I en opphetet situasjon er det ikke sikkert du husker telefonnummeret ditt eller hvor du er."),
                                                   
                                                   fluidPage(
@@ -1167,5 +1159,7 @@ server <- function(input, output, session) {
   
   
   }
+
+
 
 shinyApp(ui, server)
