@@ -27,13 +27,13 @@ ui <- dashboardPage(skin="black",
                                #menuItem("Områdekart", tabName = "map", icon=icon("map-signs")),
                                menuItem("Dykkeplasser", tabName = "divesites", icon=icon("flag")),
                                menuItem("HMS og Sikkerhet", tabName = "safety", icon=icon("thermometer-empty")),
-                               menuItem("Kontakt", tabName = "contact", icon=icon("phone"))
-                               #menuItem("Sponsorer", tabName = "sponsors", icon=icon("gift"))#,
+                               menuItem("Kontakt", tabName = "contact", icon=icon("phone")),
+                               menuItem("COVID-19 tiltak", tabName = "covid19", icon=icon("comment-medical"))#,
                                #menuItem("Test geolokasjon", tabName = "testing", icon=icon("chart-bar"))
   )),
   dashboardBody(
     #google analytics
-    tags$head(includeHTML(("google-analytics-dev.html"))),
+    tags$head(includeHTML(("google-analytics.html"))),
     
 ##################################### geo location ################################################
     
@@ -949,6 +949,76 @@ ui <- dashboardPage(skin="black",
               )
             
       ),
+      tabItem(tabName="covid19",
+              fluidPage(
+                box(width=12,
+                    status="primary",
+                    title="COVID-19 Tiltak - VIKTIG INFORMASJON",
+                    box(width=12,
+                        status="danger",
+                        title="GENERELT",
+                        p("Alle som skal på arrangementet NM i Undervannsfoto 2020, 
+                      eller har andre ærend inne på festningsområdet på Oscarsborg festning, 
+                      skal forsikre seg om at man er helt frisk og ikke har symptomer på forkjølelse eller feber."),
+                        
+                        tags$ol(
+                          tags$li("Har man allergier som frembringer nysing og hosting skal dette opplyses til arrangør."),
+                          br(),
+                          tags$li("Får man symptomer på forkjølelse eller feber underveis så informer arrangør straks om dette."),
+                          br(),
+                          tags$li("Har man tidligere vært Koronasyk eller behandlet for dette skal arrangør opplyses om dette."),
+                          br(),
+                          tags$li("Har man vært i utlandet (14 dager før NM-arrangementet), eller vært i karantene skal dette opplyses til arrangør.")
+                        )
+                        
+                    ),
+                    box(width=12,
+                        status="danger",
+                        title="PÅKLEDNING – OPPTREDELSE I BÅT – SKYLLING AV UTSTYR - AVKLEDNING",
+                        p("Det vil bli inntil 8 dykkere (inklusiv assistenter) pr båt, 
+                      pluss dykkeleder og båtfører. Minimumsavstand på 1 meter vil derfor ikke 
+                      kunne tilfredsstilles så lenge man sitter i båten. På land ved påkledning, 
+                      avkledning og vask av utstyr vil en-meters regelen kunne tilfredsstilles."),
+                        
+                        tags$ol(
+                          tags$li("Før man går i båten skal hender desinfiseres, og når man forlater båten etter dykk ved ilandstigning."),
+                          br(),
+                          tags$li("Hver enkelt må selv medbringe drikke kald/varm til eget bruk om bord i båten. 
+                                Kun en flaske av inntil 0,7 liter tillates pr person. Bespisning utover sjokolade/energibar tilsvarende tillates ikke. Verktøy/utstyr/reservedeler kan medbringes pr dykker såfremt dette passer i en 2 liters bag/kasse/pose. 
+                                Utstyret skal være merket med navn og eller deltagernummer."),
+                          br(),
+                          tags$li("Man skal bestrebe seg å holde 1 (en) meters avstand."),
+                          br(),
+                          tags$li("Spytting i maske før eller mens man sitter i båten er strengt forbudt. 
+                                 Dykkere vil bli avvist hvis så tilfelle. 
+                                 Spytting i maske tillates kun når man ligger i vannet og venter på klarsignal om dykking."),
+                          br(),
+                          tags$li("Puss av nese skal gjøres i rent tørkepapir, og kastes i egnet avfallsopptak i båten."),
+                          br(),
+                          tags$li("Spytting i og fra båt er strengt forbudt. 
+                                 Spytt skal enten gjøres før man går opp i båten eller i et rent tørkepapir og kastes i egnet avfallsopptak i båten."),
+                          br(),
+                          tags$li("Lån av utstyr mellom dykkere tillates ikke."),
+                          br(),
+                          tags$li("Ved bruk av Uridom/She-P tilsvarende, skal på-setting og av-tagning gjøres kun på toalettene. 
+                        Brukt utstyr skal kastes i godkjent søppeldunk. P-valve/tilsvarende skal være stengt så lenge man sitter i båten.")
+                        ),
+                        p("Bruk av engangshansker, og eventuelt bruk av munnbind vil bli opplyst ved behov. 
+                      Det anbefales at deltagere medbringer godkjente enganshansker og 
+                      godkjente munnbind som beredskap i tilfelle innskjerping av Koronatiltak. 
+                      Brudd på koronatiltakene kan føre til diskvalifisering."),
+                        br(),
+                        helpText(a("Helsedirektorates Veileder Smittevern for idrett (covid-19)",
+                                   href="https://www.helsedirektoratet.no/veiledere/smittevern-for-idrett-covid-19",
+                                   target="_blank")
+                        )
+                        
+                        
+                    )#end box
+                    
+                )# end box
+              )#end fluidPage
+      ),
       tabItem(tabName= "testing",
               h4("geolocation test"),
               fluidRow(column(width = 5,
@@ -1111,16 +1181,42 @@ server <- function(input, output, session) {
       
     })
    
-
+#Text descriptions for dive sites:
     
+    descr_bergholmen <- "Bergholmen: Vestsiden er til dels bratt de første 30 m, nakent berg, noe steinete, 
+                        kløfter med noe sand og silter. Østsiden er langgrunn og noe flatt med sandbunn og stein. 
+                        Forekomster av bløtdyr, muslinger, pigghuder, sjøpølser, bunn- og leppefisk, leddyr, maneter, nesledyr mm. 
+                        Sikt varierer innenfor samme årstid. Kan være mørkt fra 20 m og dypere. 
+                        Obs. kan ligge forekomster av gamle ammunisjonsrester fra krigen i den dype delen av vestsiden av området." 
+    
+    descr_tronstad <- "Tronstad: Kan være strømutsatt, unngår derfor dykking her 
+                       under flo. Til dels bratt terreng de første 30 m, noe bratt vegg, nakent berg, 
+                       noe steinete, kløfter med noe sand og silter. Forekomster av bløtdyr, muslinger, pigghuder, sjøpølser, bunn- og 
+                       leppefisk, leddyr, maneter, nesledyr mm. Sikt varierer innenfor samme årstid. 
+                       Kan være mørkt fra 20 m og dypere. Obs. kan ligge forekomster av gamle ammunisjonsrester fra krigen."
+    
+    descr_torpedobatteriet <- "Torpedobatteriet: Til dels bratt terreng de første 30 m, noe bratt vegg, nakent berg, store steiner med noe sand og silter. 
+                               Ved utløpet fra torpedobatteriet kan det være frodig og mye liv, og god sikt på den grunne delen. 
+                               Sikt varierer innenfor samme årstid. Kan være mørkt fra 20 m og dypere."
+    
+    descr_askholmene <- "Askholmene: Her dykker man i området hvor Blücher gikk ned, og rundt øyene de skipbruddene måtte søke ly.
+                         Nordsiden har til dels bratt terreng de første 30 m, bratte vegger, nakent berg, 
+                         store steiner med noe sand og silter. Forekomster av leddyr, maneter, bløtdyr, muslinger, pigghuder, sjøpølser, 
+                         bunn- og leppefisk, nesledyr mm. Sikt varierer innenfor samme årstid. Kan være mørkt fra 20 m og dypere. 
+                         Sørsiden av området er langgrunt og dyrelivet ligner Nordsiden, det finnes i tillegg noe tang."
+        
   output$divemap1 <- renderLeaflet({
     leaflet() %>%
       addTiles() %>% 
       setView(lat=59.691951, lng=10.595297, zoom=12) %>% 
-      addAwesomeMarkers(lat = 59.690536, lng = 10.593138, popup=leafpop::popupImage("tronstad_s.jpg"),icon=icon_dive1) %>% 
-      addAwesomeMarkers(lat = 59.702275, lng = 10.592654, popup=leafpop::popupImage("askholmene_s.jpg"),icon=icon_dive2) %>%  
-      addAwesomeMarkers(lat = 59.678764, lng = 10.609147, popup=leafpop::popupImage("torpedobatteriet_s.jpg"),icon=icon_dive3) %>% 
-      addAwesomeMarkers(lat = 59.673555, lng = 10.584954, popup=leafpop::popupImage("bergholmen_s.jpg"),icon=icon_dive4)
+      #addAwesomeMarkers(lat = 59.690536, lng = 10.593138, popup=leafpop::popupImage("tronstad_s.jpg"),icon=icon_dive1) %>%
+      #addAwesomeMarkers(lat = 59.702275, lng = 10.592654, popup=leafpop::popupImage("askholmene_s.jpg"),icon=icon_dive2) %>%
+      #addAwesomeMarkers(lat = 59.678764, lng = 10.609147, popup=leafpop::popupImage("torpedobatteriet_s.jpg"),icon=icon_dive3) %>%
+      #addAwesomeMarkers(lat = 59.673555, lng = 10.584954, popup=leafpop::popupImage("bergholmen_s.jpg"),icon=icon_dive4)
+      addAwesomeMarkers(lat = 59.690536, lng = 10.593138, popup=(descr_tronstad),icon=icon_dive1) %>% 
+      addAwesomeMarkers(lat = 59.702275, lng = 10.592654, popup=(descr_askholmene),icon=icon_dive2) %>%  
+      addAwesomeMarkers(lat = 59.678764, lng = 10.609147, popup=(descr_torpedobatteriet),icon=icon_dive3) %>% 
+      addAwesomeMarkers(lat = 59.673555, lng = 10.584954, popup=(descr_bergholmen),icon=icon_dive4)
       
   })
   
