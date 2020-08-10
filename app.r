@@ -447,44 +447,68 @@ ui <- dashboardPage(skin="black",
                       leafletOutput("mainmap"))
                 ),
               
-              
-              box(
-                title = "Takk til våre sponsorer",
-                status = "primary",
-                width = NULL,
-                userList(
-                  userListItem(
-                    src = "sponsor_dm.jpg", 
-                    #user_name = "Drøbak Marineservice", 
-                    description = "Drøbak Marineservice"
+              h2("Takk til våre sponsorer"),
+              fluidRow(
+                box(
+                  #title = "Takk til våre sponsorer",
+                  status = "primary",
+                  width=12,
+                  fluidRow(
+                    box(width=4,
+                        img(src='sponsor_dm.jpg', align = "center", width=150,height=110)
+                    ),
+                    box(width=4,
+                        img(src='sponsor_dykkegarasjen.jpg', align = "center", width=90,height=100)
+                    ),
+                    box(width=4,
+                        img(src='sponsor_gps.jpg', align = "center", width=280,height=100)
+                    ),
                   ),
-                  userListItem(
-                    src = "sponsor_dykkegarasjen.jpg", 
-                    #user_name = "Dykkegarasjen", 
-                    description = "Dykkegarasjen"
-                  ),
-                  userListItem(
-                    src = "sponsor_gps.jpg", 
-                    #user_name = "GPS", 
-                    description = "GPS"
-                  ),
-                  userListItem(
-                    src = "sponsor_gulen.png", 
-                    #user_name = "Gulen Diving Resort", 
-                    description = "Gulen Dive Resort"
-                  ),
-                  userListItem(
-                    src = "sponsor_oadk.jpg", 
-                    #user_name = "OADK", 
-                    description = "OADK"
-                  ),
-                  userListItem(
-                    src = "sponsor_nekton.jpg", 
-                    #user_name = "Nekton", 
-                    description = "Nekton Diving"
+                  fluidRow(
+                    box(width=4,
+                        img(src='sponsor_gulen.png', align = "center", width=140,height=100)
+                    ),
+                    box(width=4,
+                        img(src='sponsor_oadk.jpg', align = "center", width=100,height=100)
+                    ),
+                    box(width=4,
+                        img(src='sponsor_nekton.jpg', align = "center", width=120,height=100)
+                    )
                   )
                 )
-              )
+                # userList(
+                #   userListItem(
+                #     src = "sponsor_dm.jpg", 
+                #     #user_name = "Drøbak Marineservice", 
+                #     description = "Drøbak Marineservice"
+                #   ),
+                #   userListItem(
+                #     src = "sponsor_dykkegarasjen.jpg", 
+                #     #user_name = "Dykkegarasjen", 
+                #     description = "Dykkegarasjen"
+                #   ),
+                #   userListItem(
+                #     src = "sponsor_gps.jpg", 
+                #     #user_name = "GPS", 
+                #     description = "GPS"
+                #   ),
+                #   userListItem(
+                #     src = "sponsor_gulen.png", 
+                #     #user_name = "Gulen Diving Resort", 
+                #     description = "Gulen Dive Resort"
+                #   ),
+                #   userListItem(
+                #     src = "sponsor_oadk.jpg", 
+                #     #user_name = "OADK", 
+                #     description = "OADK"
+                #   ),
+                #   userListItem(
+                #     src = "sponsor_nekton.jpg", 
+                #     #user_name = "Nekton", 
+                #     description = "Nekton Diving"
+                #   )
+                # )#end userList
+              )#end box
               
               
       ),
