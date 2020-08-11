@@ -455,24 +455,32 @@ ui <- dashboardPage(skin="black",
                   width=12,
                   fluidRow(
                     box(width=4,
-                        img(src='sponsor_dm.jpg', align = "center", width=150,height=110)
+                        div(img(src='sponsor_dm.jpg', width=150,height=110), style="text-align: center;")
                     ),
                     box(width=4,
-                        img(src='sponsor_dykkegarasjen.jpg', align = "center", width=90,height=100)
+                        div(img(src='sponsor_drobakakvarium.png',width=160,height=80), style="text-align: center;")
                     ),
                     box(width=4,
-                        img(src='sponsor_gps.jpg', align = "center", width=280,height=100)
+                        div(img(src='sponsor_gps.jpg', width=280,height=100), style="text-align: center;")
                     ),
                   ),
                   fluidRow(
                     box(width=4,
-                        img(src='sponsor_gulen.png', align = "center", width=140,height=100)
+                        div(img(src='sponsor_gulen.png', width=140, height=100), style="text-align: center;")
                     ),
                     box(width=4,
-                        img(src='sponsor_oadk.jpg', align = "center", width=100,height=100)
+                        div(img(src='sponsor_oadk.jpg', width=100, height=100),style="text-align: center;")
                     ),
                     box(width=4,
-                        img(src='sponsor_nekton.jpg', align = "center", width=120,height=100)
+                        div(img(src='sponsor_nekton.jpg', width=140,height=100),style="text-align: center;")
+                    )
+                  ),
+                  fluidRow(
+                    box(width=4,
+                        div(img(src='sponsor_dykkegarasjen.jpg',width=90,height=100), style="text-align: center;")
+                    ),
+                    box(width=4,
+                        div(img(src='sponsor_baredykk.png', width=110,height=100),style="text-align: center;")
                     )
                   )
                 )
