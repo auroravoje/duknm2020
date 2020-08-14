@@ -9,7 +9,8 @@ library(shinyWidgets)
 library(tidyverse)
 library(shinyWidgets)
 library(leafpop)
-
+#library(mapview)
+library(sf)
 
 ui <- dashboardPage(skin="black",
   dashboardHeader(title="DRØBAK UNDERVANNSKLUBB",
@@ -1164,25 +1165,45 @@ server <- function(input, output, session) {
 ############### leaflet main map ##################  
   output$mainmap <- renderLeaflet({
     leaflet() %>%
-      addTiles() %>% #59.676430, 10.615220
+      addTiles() %>% 
       setView(lat=59.676430, lng=10.615220, zoom=13) %>% 
-      addAwesomeMarkers(lat = 59.678457, lng = 10.624653, popup=leafpop::popupImage("clubhouse_s.jpg"),icon=icon_home) %>% 
+      #addAwesomeMarkers(lat = 59.678457, lng = 10.624653, popup=popupImage("clubhouse_s.jpg"),icon=icon_home) %>%#this doesn't work in safari!!!
+      addAwesomeMarkers(lat = 59.678457, lng = 10.624653, popup=paste0("<img src = ", "clubhouse_s.jpg"," height=200px"," width=240px", ">"),icon=icon_home) %>%
       addAwesomeMarkers(lat = 59.673461, lng = 10.621689, popup="Parkering - Husvikveien",icon=icon_car) %>% 
-      addAwesomeMarkers(lat = 59.664597, lng = 10.628475, popup=leafpop::popupImage("parking_banklokka_s.jpg"),icon=icon_car) %>% 
-      addAwesomeMarkers(lat = 59.671528, lng = 10.627083, popup=leafpop::popupImage("parking_sagajordet_s.jpg"),icon=icon_car) %>% 
-      addAwesomeMarkers(lat = 59.670147, lng = 10.622890, popup=leafpop::popupImage("boat_drobak_oscarsborg_s.jpg"),icon=icon_boat) %>%  
+      
+      #addAwesomeMarkers(lat = 59.664597, lng = 10.628475, popup=leafpop::popupImage("parking_banklokka_s.jpg"),icon=icon_car) %>% 
+      addAwesomeMarkers(lat = 59.664597, lng = 10.628475, popup=paste0("<img src = ", "parking_banklokka_s.jpg"," height=200px"," width=240px", ">"),icon=icon_car) %>% 
+      
+      #addAwesomeMarkers(lat = 59.671528, lng = 10.627083, popup=leafpop::popupImage("parking_sagajordet_s.jpg"),icon=icon_car) %>% 
+      addAwesomeMarkers(lat = 59.671528, lng = 10.627083, popup=paste0("<img src = ", "parking_sagajordet_s.jpg"," height=200px"," width=240px", ">"),icon=icon_car) %>% 
+      
+      
+      #addAwesomeMarkers(lat = 59.670147, lng = 10.622890, popup=leafpop::popupImage("boat_drobak_oscarsborg_s.jpg"),icon=icon_boat) %>%  
+      addAwesomeMarkers(lat = 59.670147, lng = 10.622890, popup=paste0("<img src = ", "boat_drobak_oscarsborg_s.jpg"," height=200px"," width=240px", ">"),icon=icon_boat) %>%  
+    
       #on the event site:
       
-      addAwesomeMarkers(lat = 59.676348, lng = 10.607065, popup=leafpop::popupImage("boat_oscarsborg_drobak_s.jpg"),icon=icon_boat) %>% 
-      addAwesomeMarkers(lat = 59.678427, lng = 10.604004, popup=leafpop::popupImage("divepalace_s.jpg"),icon=icon_palace) %>% 
-      addAwesomeMarkers(lat = 59.675737, lng = 10.605976, popup=leafpop::popupImage("hotel_s.jpg"),icon=icon_hotel) %>% 
-      addAwesomeMarkers(lat = 59.676137, lng = 10.605655, popup=leafpop::popupImage("guided_tour_s.jpg"),icon=icon_landmark) %>% 
+      #addAwesomeMarkers(lat = 59.676348, lng = 10.607065, popup=popupImage("boat_oscarsborg_drobak_s.jpg"),icon=icon_boat) %>% 
+      addAwesomeMarkers(lat = 59.676348, lng = 10.607065, popup=paste0("<img src = ", "boat_oscarsborg_drobak_s.jpg"," height=200px"," width=240px", ">"),icon=icon_boat) %>% 
+      
+      #addAwesomeMarkers(lat = 59.678427, lng = 10.604004, popup=popupImage("divepalace_s.jpg"),icon=icon_palace) %>% 
+      addAwesomeMarkers(lat = 59.678427, lng = 10.604004, popup=paste0("<img src = ", "divepalace_s.jpg"," height=200px"," width=240px", ">"),icon=icon_palace) %>% 
+      
+      #addAwesomeMarkers(lat = 59.675737, lng = 10.605976, popup=popupImage("hotel_s.jpg"),icon=icon_hotel) %>% 
+      addAwesomeMarkers(lat = 59.675737, lng = 10.605976, popup=paste0("<img src = ", "hotel_s.jpg"," height=200px"," width=240px", ">"),icon=icon_hotel) %>% 
+      
+      #addAwesomeMarkers(lat = 59.676137, lng = 10.605655, popup=popupImage("guided_tour_s.jpg"),icon=icon_landmark) %>% 
+      addAwesomeMarkers(lat = 59.676137, lng = 10.605655, popup=paste0("<img src = ", "guided_tour_s.jpg"," height=200px"," width=240px", ">"),icon=icon_landmark) %>% 
+      
       addAwesomeMarkers(lat = 59.678345, lng = 10.604299, popup="Oppmøte - dykkebåt",icon=icon_boat) %>% 
       addAwesomeMarkers(lat = 59.673514, lng = 10.607124, popup="Festmiddag",icon=icon_dinner) %>%
       addAwesomeMarkers(lat = 59.675333, lng = 10.605442, popup="Premieutdeling",icon=icon_prize) %>%
-      addAwesomeMarkers(lat = 59.677580, lng = 10.606661, popup=leafpop::popupImage("jury_s.jpg"),icon=icon_jury)
-
-
+      addAwesomeMarkers(lat = 59.675333, lng = 10.605442, popup="Premieutdeling",icon=icon_prize) %>%
+      
+      #addAwesomeMarkers(lat = 59.677580, lng = 10.606661, popup=popupImage("jury_s.jpg"),icon=icon_jury)
+      addAwesomeMarkers(lat = 59.677580, lng = 10.606661, popup=paste0("<img src = ", "jury_s.jpg"," height=200px"," width=240px", ">"),icon=icon_jury)
+    
+    #paste0("<img src = ", "clubhouse_s.jpg"," height=200px"," width=240px", ">")
     
   })
   
