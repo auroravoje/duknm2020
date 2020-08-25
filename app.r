@@ -18,6 +18,11 @@ ui <- dashboardPage(skin="black",
                             img(src = 'duk_logo.jpg',
                                 title = "DUK", height = "30px"),
                             style = "padding-top:10px; padding-bottom:10px;"),
+                          class = "dropdown"),
+                  tags$li(a(href = 'https://ndf.no/',
+                            img(src = 'ndf_logo3.jpg',
+                                title = "NDF", height = "30px"),
+                            style = "padding-top:10px; padding-bottom:10px;"),
                           class = "dropdown")
                   ),
   dashboardSidebar(sidebarMenu(id="menu",
@@ -27,9 +32,10 @@ ui <- dashboardPage(skin="black",
                                menuItem("Utstyr & Logistikk", tabName = "equipment", icon=icon("cubes")),
                                #menuItem("Områdekart", tabName = "map", icon=icon("map-signs")),
                                menuItem("Dykkeplasser", tabName = "divesites", icon=icon("flag")),
+                               menuItem("Temaklasse", tabName="themeclass", icon = icon("camera")),
                                menuItem("HMS og Sikkerhet", tabName = "safety", icon=icon("thermometer-empty")),
                                menuItem("Kontakt", tabName = "contact", icon=icon("phone")),
-                               menuItem("COVID-19 tiltak", tabName = "covid19", icon=icon("comment-medical"))#,
+                               menuItem("COVID-19 tiltak", tabName = "covid19", icon=icon("medkit"))#,
                                #menuItem("Test geolokasjon", tabName = "testing", icon=icon("chart-bar"))
   )),
   dashboardBody(
@@ -456,32 +462,35 @@ ui <- dashboardPage(skin="black",
                   width=12,
                   fluidRow(
                     box(width=4,
-                        div(img(src='sponsor_dm.jpg', width=150,height=110), style="text-align: center;")
+                        div(a(img(src='sponsor_dm.jpg', width=150,height=110),href="https://www.facebook.com/Gyltingen/"), style="text-align: center;")
                     ),
                     box(width=4,
-                        div(img(src='sponsor_drobakakvarium.png',width=160,height=80), style="text-align: center;")
+                        div(a(img(src='sponsor_drobakakvarium.png',width=160,height=80),href="https://drobakakvarium.no/"), style="text-align: center;")
                     ),
                     box(width=4,
-                        div(img(src='sponsor_gps.jpg', width=280,height=100), style="text-align: center;")
+                        div(a(img(src='sponsor_gps.jpg', width=280,height=100),href="http://www.gpsas.net/"), style="text-align: center;")
                     ),
                   ),
                   fluidRow(
                     box(width=4,
-                        div(img(src='sponsor_gulen.png', width=140, height=100), style="text-align: center;")
+                        div(a(img(src='sponsor_gulen.png', width=140, height=100),href="https://www.gulendiveresort.com/"), style="text-align: center;")
                     ),
                     box(width=4,
-                        div(img(src='sponsor_oadk.jpg', width=100, height=100),style="text-align: center;")
+                        div(a(img(src='sponsor_oadk.jpg', width=100, height=100),href="https://www.facebook.com/osloakershusdykkekrets"),style="text-align: center;")
                     ),
                     box(width=4,
-                        div(img(src='sponsor_nekton.jpg', width=140,height=100),style="text-align: center;")
+                        div(a(img(src='sponsor_nekton.jpg', width=140,height=100),href="http://www.nektondiving.no/"),style="text-align: center;")
                     )
                   ),
                   fluidRow(
                     box(width=4,
-                        div(img(src='sponsor_dykkegarasjen.jpg',width=90,height=100), style="text-align: center;")
+                        div(a(img(src='sponsor_dykkegarasjen.jpg',width=90,height=100),href="https://dykkegarasjen.no/"), style="text-align: center;")
                     ),
                     box(width=4,
-                        div(img(src='sponsor_baredykk.png', width=110,height=100),style="text-align: center;")
+                        div(a(img(src='sponsor_baredykk.png', width=110,height=100),href="https://baredykk.no/"),style="text-align: center;")
+                    ),
+                    box(width=4,
+                        div(a(img(src='sponsor_fjeldogvann.png', width=130,height=100),href="https://www.fjeldogvann.no/"),style="text-align: center;")
                     )
                   )
                 )
@@ -530,6 +539,19 @@ ui <- dashboardPage(skin="black",
                   h4("For detaljert informasjon om dykkeplassene trykk på markørene på kartet."),
                   leafletOutput("divemap1")
                   )),
+      tabItem(tabName="themeclass",
+              h2("Temaklasse"),
+              gradientBox(
+                title = "Temaklassen offentliggjøres den 11.09.2020",
+                width = 12,
+                icon = "fa fa-camera",
+                gradientColor = "blue", 
+                boxToolSize = "xs", 
+                closable = TRUE,
+                footer = "Årets tema annonseres her: ", img(src="divecam.jpg")
+              
+              )
+              ),
      
       tabItem(tabName="equipment",
               h2("Utstyr"),
@@ -975,6 +997,10 @@ ui <- dashboardPage(skin="black",
                       boxProfileItem(
                         title = "Sikkerhetsansvarlig:",
                         description = "404 35 973"
+                      ),
+                      boxProfileItem(
+                        title = "IT/møteromansvarlig:",
+                        description = "906 66 868"
                       )
                       
                     )
